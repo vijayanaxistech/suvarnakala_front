@@ -1,42 +1,442 @@
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap');
 
 * {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+  font-family: 'Jost', sans-serif;
 }
 
-a {
-  color: inherit;
+/* ==================== Custom Text Color  ==================== */
+
+.text-red {
+  color: #d41b1f;
+}
+
+.bg-red {
+  background-color: #d41b1f;
+}
+
+.text-blue {
+  color: #033a79;
+}
+
+.heading {
+  font-size: 20px;
+}
+
+/* ==================== Header Section  ==================== */
+
+.header-marquee {
+  background-color: #d41b1f;
+  font-size: 0.9rem;
+}
+
+.custom-navbar {
+  background-color: #f5e7d6;
+  padding: 0.5rem 1rem;
+}
+
+.custom-toggler {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.custom-nav-link {
+  font-weight: 500;
+  color: #000 !important;
+  transition: color 0.3s ease;
+  text-align: center;
+}
+
+.custom-nav-link:hover {
+  color: #d41b1f !important;
+}
+
+.social-icons svg {
+  color: #d41b1f;
+  transition: transform 0.3s ease;
+}
+
+.social-icons svg:hover {
+  transform: scale(1.1);
+}
+
+.header-logo {
+  flex-shrink: 0;
+}
+
+/* ==================== Custom Button  ==================== */
+
+.custom-btn {
+  display: inline-block !important;
+  /* force inline-block */
+  width: auto !important;
+  /* force auto width */
+  white-space: nowrap !important;
+  /* prevent wrapping */
+  max-width: max-content !important;
+  /* shrink to fit content */
+  background-color: #d41b1f;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.custom-btn:hover {
+  background-color: #b2171a;
+}
+
+/* ==================== Custom react-multi-carousel-dot-list  ==================== */
+
+.react-multi-carousel-dot-list {
+  margin-top: 40px;
+  position: relative;
+  z-index: 1;
+}
+
+.react-multi-carousel-dot button {
+  margin: 0 5px;
+  border: 1px solid #d41b1f;
+  background-color: #fff !important;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  opacity: 0.5;
+  transition: all 0.3s ease-in-out;
+  border: 1px solid #b2171a !important;
+}
+
+.react-multi-carousel-dot--active button {
+  background-color: #d41b1f !important;
+  opacity: 1;
+  transform: scale(1.2);
+}
+
+/* ==================== Gift Section  ==================== */
+
+.gift-card {
+  background: linear-gradient(to top, #033a79, #d41b1f);
+  color: white;
+  font-weight: 600;
+  min-width: 180px;
+  height: 120px;
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 25px;
+}
+
+/* ==================== Footer Section ==================== */
+
+.footer-sections {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-logo-section {
+  flex: 1 1 250px;
+  max-width: 300px;
+  min-width: 220px;
+}
+
+.footer-description {
+  max-width: 300px;
+  line-height: 1.5;
+}
+
+.footer-links-section {
+  flex: 1 1 200px;
+  max-width: 200px;
+  min-width: 180px;
+}
+
+.footer-contact-section {
+  flex: 1 1 200px;
+  max-width: 250px;
+  min-width: 180px;
+}
+
+.footer-social-section {
+  flex: 1 1 150px;
+  max-width: 150px;
+  min-width: 120px;
+}
+
+.footer-title {
+  font-size: 16px;
+  color: #333;
+}
+
+.footer-link {
+  font-size: 16px;
+}
+
+.icon-small {
+  font-size: 16px;
+}
+
+.footer-bottom {
+  font-size: 16px;
+}
+
+.footer-dev-link {
+  color: black;
   text-decoration: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+.hero-section {
+  background: #f5e7d6;
+  padding: 1px 0;
+  position: relative;
+  /* Add if needed for absolute children */
+}
+
+.style_sec {
+  color: #d41b1f;
+}
+
+.hero-section .main-title p {
+  margin-top: 25px;
+}
+
+.hero-section .main-title h2 {
+  position: relative;
+}
+
+.hero-section .jewellary_image {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.hero-section .mobile_img {
+  position: absolute;
+  bottom: 0;
+  left: -120px;
+}
+
+.hero-section .main-title h2::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  background: url('/line466.png');
+  background-size: cover;
+  width: 418px;
+  height: 12px;
+  left: 0;
+  top: 39px;
+}
+
+.dark_font {
+  font-weight: 700;
+}
+
+.custom-heading-wrapper {
+  max-width: 100%;
+}
+
+.custom-heading {
+  font-size: clamp(1.5rem, 2.5vw, 2.2rem);
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.heading-underline {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 12px;
+  /* for underline image */
+}
+
+.heading-underline::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  aspect-ratio: 6 / 1;
+  background-image: url('../assets/line466.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: bottom left;
+  pointer-events: none;
+}
+
+.heading-extension {
+  font-size: 20px;
+  color: #033a79;
+  /* your text-blue color */
+}
+
+.categories-container {
+  display: flex;
+  overflow-x: auto;
+  gap: 1rem;
+  padding-bottom: 0.5rem;
+  -webkit-overflow-scrolling: touch; /* smooth scrolling on iOS */
+}
+.category-item {
+  flex: 0 0 70vw; /* Width on mobile: 70% of viewport */
+  max-width: 300px; /* max width so it doesn't get too large */
+}
+
+/* ==================== Media Query  ==================== */
+
+@media (min-width: 768px) {
+  .list-md-bullet {
+    list-style-type: disc;
+  }
+}
+
+@media (max-width: 576px) {
+  h4.fw-bold {
+    font-size: 1.5rem;
+  }
+
+  h6.fw-bold {
+    font-size: 1.25rem;
+  }
+
+  p,
+  li {
+    font-size: 0.9rem;
+  }
+}
+
+.bg-color {
+  background-color: #f5e7d6;
+}
+
+@media (max-width: 768px) {
+  footer .container > div.d-flex {
+    flex-wrap: wrap;
+  }
+
+  .social-media {
+    order: 2 !important;
+    flex-basis: 100% !important;
+    max-width: 100% !important;
+    min-width: auto !important;
+    margin-top: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Stack columns vertically and center */
+  .hero-section .row {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+  }
+
+  .hero-section .col-md-6 {
+    width: 100% !important;
+    max-width: 100% !important;
+    position: relative !important;
+    /* allow absolute children */
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  /* Remove desktop absolute positioning from jewelry container */
+  .hero-section .jewellary_image {
+    position: relative !important;
+    width: 90vw;
+    max-width: 350px;
+    margin: 0 auto;
+  }
+
+  /* Make celebration image responsive */
+  .hero-section .jewellary_image img {
+    width: 100% !important;
+    height: auto !important;
+  }
+
+  /* Position mobile image absolutely inside jewelry image container */
+  .hero-section .mobile_img {
+    position: absolute !important;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 45%;
+    max-width: 160px;
+    height: auto;
+    margin: 0;
+    z-index: 10;
+  }
+
+  .hero-section .mobile_img img {
+    width: 100% !important;
+    height: auto !important;
+  }
+
+  /* Hide decorative underline on mobile */
+  .hero-section .main-title h2::after {
+    display: none !important;
+  }
+
+  /* Add some padding around text */
+  .hero-section .main-title {
+    padding: 0 15px;
+  }
+
+  /* Make store_demo container responsive */
+  .store_demo {
+    width: 90vw;
+    max-width: 350px;
+    margin: 20px auto 0 auto;
+    /* center and add some margin */
+    text-align: center;
+  }
+
+  /* Make the image inside scale nicely */
+  .store_demo img {
+    width: 100% !important;
+    height: auto !important;
+    object-fit: contain;
+    display: inline-block;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .custom-heading-wrapper {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-center !important;
+    text-align: center;
+  }
+
+  .custom-heading-wrapper .custom-heading {
+    margin-bottom: 0.5rem;
+    /* space below h2 on mobile */
+  }
+
+  .custom-heading-wrapper .heading-extension {
+    margin-left: 0 !important;
+    /* remove desktop left margin */
+    white-space: normal;
+    /* allow wrapping */
+  }
+}
+
+/* On medium and larger screens, use grid layout with exactly 4 columns */
+@media (min-width: 768px) {
+  .categories-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* exactly 4 items per row */
+    overflow-x: visible;
+    gap: 1.5rem;
+  }
+  .category-item {
+    flex: none;
+    max-width: none;
   }
 }

@@ -1,10 +1,28 @@
-import Head from 'next/head';
+// app/page.tsx
+import Hero from '../components/Hero';
+import Products from '../components/Events';
+import CredibilitySection from '../components/CredibilitySection';
+import VideoSection from '../components/VideoSection';
+import ShopbyStyle from '../components/ShopbyStyle';
+import TopCollection from '../components/TopCollection';
+import GiftCard from '../components/GiftCard';
+import Moments from '../components/Moments';
+import Celebrate from '../components/Celebrate';
+import Testimonials from '../components/Testimonials';
 
-export default function HomePage() {
+export default function Home() {
   return (
-    <section>
-      <h1 className="text-3xl font-bold">Welcome to Suvarnakala</h1>
-      <p>Discover our handcrafted jewelry collections.</p>
-    </section>
+    <>
+      <Hero />
+      <CredibilitySection />
+      <VideoSection />
+      <ShopbyStyle />
+      <Products />
+      <TopCollection />
+      <GiftCard />
+      <Moments />
+      <Celebrate />
+      <Testimonials />
+    </>
   );
 }
