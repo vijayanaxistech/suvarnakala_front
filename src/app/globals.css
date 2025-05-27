@@ -4,6 +4,17 @@
   font-family: 'Jost', sans-serif;
 }
 
+.oleo-script-regular {
+  font-family: 'Oleo Script', system-ui;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.oleo-script-bold {
+  font-weight: 700;
+  font-style: normal;
+}
+
 /* ==================== Custom Text Color  ==================== */
 
 .text-red {
@@ -271,7 +282,8 @@
 }
 
 .heading-extension {
-  font-size: 20px;
+  font-size: 24px;
+  font-weight: 500;
   color: #033a79;
   /* your text-blue color */
 }
@@ -281,11 +293,12 @@
   overflow-x: auto;
   gap: 1rem;
   padding-bottom: 0.5rem;
-  -webkit-overflow-scrolling: touch; /* smooth scrolling on iOS */
+  -webkit-overflow-scrolling: touch;
 }
+
 .category-item {
-  flex: 0 0 70vw; /* Width on mobile: 70% of viewport */
-  max-width: 300px; /* max width so it doesn't get too large */
+  flex: 0 0 70vw;
+  max-width: 300px;
 }
 
 /* ==================== Media Query  ==================== */
@@ -354,13 +367,11 @@
     margin: 0 auto;
   }
 
-  /* Make celebration image responsive */
   .hero-section .jewellary_image img {
     width: 100% !important;
     height: auto !important;
   }
 
-  /* Position mobile image absolutely inside jewelry image container */
   .hero-section .mobile_img {
     position: absolute !important;
     bottom: 10px;
@@ -378,26 +389,21 @@
     height: auto !important;
   }
 
-  /* Hide decorative underline on mobile */
   .hero-section .main-title h2::after {
     display: none !important;
   }
 
-  /* Add some padding around text */
   .hero-section .main-title {
     padding: 0 15px;
   }
 
-  /* Make store_demo container responsive */
   .store_demo {
     width: 90vw;
     max-width: 350px;
     margin: 20px auto 0 auto;
-    /* center and add some margin */
     text-align: center;
   }
 
-  /* Make the image inside scale nicely */
   .store_demo img {
     width: 100% !important;
     height: auto !important;
@@ -416,25 +422,22 @@
 
   .custom-heading-wrapper .custom-heading {
     margin-bottom: 0.5rem;
-    /* space below h2 on mobile */
   }
 
   .custom-heading-wrapper .heading-extension {
     margin-left: 0 !important;
-    /* remove desktop left margin */
     white-space: normal;
-    /* allow wrapping */
   }
 }
 
-/* On medium and larger screens, use grid layout with exactly 4 columns */
 @media (min-width: 768px) {
   .categories-container {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* exactly 4 items per row */
+    grid-template-columns: repeat(4, 1fr);
     overflow-x: visible;
     gap: 1.5rem;
   }
+
   .category-item {
     flex: none;
     max-width: none;

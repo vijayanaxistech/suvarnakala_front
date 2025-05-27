@@ -14,7 +14,6 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <CredibilitySection />
       <VideoSection />
       <ShopbyStyle />
       <Products />

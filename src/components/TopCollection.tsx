@@ -1,24 +1,21 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import Head from 'next/head';
+import Image from 'next/image';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Image from 'next/image';
+import API from '../lib/api';
 
-// Import images
-import bangles from '../assets/e53d641f683f50f4ddd4ae9d6b98e68ac5883320.jpg';
-import earrings from '../assets/cb27ea4d1307c89b027cbb6e42b33f7f02e9d2b3.jpg';
-import necklace from '../assets/5f541ab13231d4702705fa1ea551220034b6b03b.jpg';
-import mangalsutra from '../assets/0ca2bba91029ae5607453572705aa90609c4cee0.jpg';
+// Define interface for trending design
+interface TrendingDesign {
+  _id: string;
+  name: string;
+  image?: string;
+}
 
-const collections = [
-  { title: 'Bangles', image: bangles },
-  { title: 'Earrings', image: earrings },
-  { title: 'Necklace', image: necklace },
-  { title: 'Mangalsutra', image: mangalsutra },
-];
-
+// Carousel responsive settings
 const responsive = {
   superLargeDesktop: {
     breakpoint: { max: 4000, min: 1441 },
@@ -42,60 +39,171 @@ const responsive = {
   },
 };
 
-const TopCollection = () => {
+const TopCollection: React.FC = () => {
+  const [designs, setDesigns] = useState<TrendingDesign[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  // Base URL for API
+  const BASE_URL = API.defaults.baseURL || 'http://localhost:5000';
+
+  // Fetch trending designs on mount
+  useEffect(() => {
+    const fetchDesigns = async () => {
+      setIsLoading(true);
+      try {
+        const response = await API.get('api/trendingdesigns');
+        // Handle both direct array and wrapped data
+        const fetchedDesigns = Array.isArray(response.data)
+          ? response.data
+          : response.data.data || [];
+        setDesigns(fetchedDesigns);
+      } catch (error: any) {
+        console.error('Error fetching trending designs:', error);
+        setDesigns([]);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchDesigns();
+  }, []);
+
+  // Handle image load error
+  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
+    e.currentTarget.src = 'https://via.placeholder.com/300x300?text=No+Image';
+  };
+
+  // Structured Data for SEO (JSON-LD)
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'Suvarnakala Top Trending Designs',
+    description:
+      'Explore Suvarnakala’s top trending jewelry designs, featuring the latest styles in gold, diamond, and more for every occasion.',
+    itemListElement: designs.map((design, index) => ({
+      '@type': 'Product',
+      position: index + 1,
+      name: design.name,
+      image: design.image ? `${BASE_URL}/${design.image}` : 'https://via.placeholder.com/300x300?text=No+Image',
+      description: `Suvarnakala ${design.name} trending jewelry design.`,
+      brand: {
+        '@type': 'Brand',
+        name: 'Suvarnakala',
+      },
+    })),
+  };
+
   return (
-    <div className="p-5">
-      <div className="custom-heading-wrapper d-flex align-items-center mb-4">
-        <h2 className="m-0 custom-heading text-wrap me-3">
-          <span className="heading-underline">
-            Top Trending <span className="text-red">Designs :</span>
-          </span>
-        </h2>
+    <>
+      {/* SEO Metadata */}
+      <Head>
+        <title>Suvarnakala Top Trending Jewelry Designs - Latest Styles</title>
+        <meta
+          name="description"
+          content="Discover Suvarnakala’s top trending jewelry designs, featuring the latest in gold, diamond, and more. Elevate your look with our latest styles."
+        />
+        <meta
+          name="keywords"
+          content="Suvarnakala, trending jewelry, top jewelry designs, gold jewelry, diamond jewelry, latest jewelry styles"
+        />
+        <meta name="robots" content="index, follow" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="canonical" href="https://yourwebsite.com/top-trending-designs" />
+        {/* Open Graph for social media */}
+        <meta
+          property="og:title"
+          content="Suvarnakala Top Trending Jewelry Designs - Latest Styles"
+        />
+        <meta
+          property="og:description"
+          content="Explore Suvarnakala’s top trending jewelry designs, featuring the latest in gold, diamond, and more."
+        />
+        <meta
+          property="og:image"
+          content={
+            designs.length > 0 && designs[0].image
+              ? `${BASE_URL}/${designs[0].image}`
+              : 'https://via.placeholder.com/300x300?text=No+Image'
+          }
+        />
+        <meta property="og:url" content="https://yourwebsite.com/top-trending-designs" />
+        <meta property="og:type" content="website" />
+        {/* Structured Data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
+      </Head>
 
-        <span className="heading-extension">Elevate Your Look with the Latest Designs</span>
-      </div>
+      <div className="p-5" aria-label="Suvarnakala Top Trending Designs Section">
+        <div className="custom-heading-wrapper d-flex align-items-center mb-4">
+          <h2 className="m-0 custom-heading text-wrap me-3">
+            <span className="heading-underline">
+              Top Trending <span className="text-red">Designs :</span>
+            </span>
+          </h2>
+          <span className="heading-extension">Elevate Your Look with the Latest Designs</span>
+        </div>
 
-      <div className="mt-4">
-        <Carousel
-          responsive={responsive}
-          infinite={true}
-          autoPlay={true}
-          autoPlaySpeed={3000}
-          showDots={true}
-          arrows={false}
-          containerClass="carousel-container"
-          itemClass="px-2 pb-5"
-        >
-          {collections.map((item, index) => (
-            <div key={index} className="bg-transparent">
-              <div
-                className="rounded-top-4"
-                style={{
-                  position: 'relative',
-                  width: '100%',
-                  paddingTop: '100%',
-                  overflow: 'hidden',
-                }}
-              >
-                <Image
-                  src={item.image}
-                  alt={item.title}
-                  fill
-                  sizes="(max-width: 576px) 100vw, 300px"
-                  style={{ objectFit: 'cover' }}
-                />
-              </div>
-              <div
-                className="text-white text-center py-3 rounded-bottom-4"
-                style={{ backgroundColor: '#033A79', marginTop: '-4px' }} // merge top-bottom
-              >
-                {item.title}
-              </div>
-            </div>
-          ))}
-        </Carousel>
+        <div className="mt-4">
+          {isLoading ? (
+            <div className="text-center">Loading...</div>
+          ) : designs.length === 0 ? (
+            <div className="text-center">No trending designs available</div>
+          ) : (
+            <Carousel
+              responsive={responsive}
+              infinite={true}
+              autoPlay={true}
+              autoPlaySpeed={3000}
+              showDots={true}
+              arrows={false}
+              containerClass="carousel-container"
+              itemClass="px-2 pb-5"
+              aria-live="polite"
+            >
+              {designs.map((item) => (
+                <div
+                  key={item._id}
+                  className="bg-transparent"
+                  role="group"
+                  aria-label={`Trending Design: ${item.name}`}
+                >
+                  <div
+                    className="rounded-top-4"
+                    style={{
+                      position: 'relative',
+                      width: '100%',
+                      paddingTop: '100%',
+                      overflow: 'hidden',
+                    }}
+                  >
+                    <Image
+                      src={
+                        item.image
+                          ? `${BASE_URL}/${item.image}`
+                          : 'https://via.placeholder.com/300x300?text=No+Image'
+                      }
+                      alt={`Suvarnakala ${item.name} Trending Jewelry Design`}
+                      fill
+                      sizes="(max-width: 576px) 100vw, 300px"
+                      style={{ objectFit: 'cover' }}
+                      onError={handleImageError}
+                      loading="lazy"
+                    />
+                  </div>
+                  <div
+                    className="text-white text-center py-3 rounded-bottom-4"
+                    style={{ backgroundColor: '#033A79', marginTop: '-4px' }}
+                  >
+                    {item.name}
+                  </div>
+                </div>
+              ))}
+            </Carousel>
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

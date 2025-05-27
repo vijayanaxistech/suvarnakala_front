@@ -10,21 +10,24 @@ const VideoSection: React.FC = () => {
         padding: 0,
         boxSizing: 'border-box',
       }}
-      className="rounded-0 "
+      className="rounded-0 mt-1 "
     >
       <video
         style={{
           backgroundColor: '#000',
           display: 'block',
           width: '100%',
-          height: 'auto',
-          maxHeight: '500px', // Adjust as needed
-          objectFit: 'cover', // Optional: crop video if needed
+          height: '600px',
+          maxHeight: '500px',
+          objectFit: 'cover',
         }}
-        controls
+        autoPlay
+        muted
+        loop
+        playsInline
         preload="metadata"
       >
-        <source src="/sample.mp4" type="video/mp4" />
+        <source src="/1713940466054.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
     </div>

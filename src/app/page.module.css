@@ -41,12 +41,11 @@
   z-index: 1;
 }
 
-/* components/CategoryGrid.module.css */
 .card,
 .cardSmall {
   position: relative;
   overflow: hidden;
-  border-radius: 10px;
+  border-radius: 6px;
   height: 100%;
 }
 
@@ -55,7 +54,7 @@
   width: 100%;
   aspect-ratio: 16 / 9;
   overflow: hidden;
-  border-radius: 1rem;
+  border-radius: 6px;
 }
 
 .cardSmall {
@@ -63,7 +62,7 @@
   width: 100%;
   aspect-ratio: 16 / 6;
   overflow: hidden;
-  border-radius: 1rem;
+  border-radius: 6px;
 }
 
 .overlay {
@@ -73,15 +72,15 @@
   width: 100%;
   height: 100%;
   display: flex;
-  align-items: flex-end; /* vertical alignment: bottom */
-  justify-content: flex-start; /* horizontal alignment: left */
+  align-items: flex-end;
+  justify-content: flex-start;
   padding: 1.2rem 1.5rem;
-  color: white;
-  font-weight: 600;
-  font-size: 1.1rem;
-  background: linear-gradient(to top, #d41b1f, rgba(103, 136, 209, 0.3), transparent);
-  filter: drop-shadow(0px -8px 12px rgba(255, 0, 0, 0.35));
-  border-radius: 12px;
+  color: #033a79;
+  font-weight: 300;
+  font-size: 24px;
+  /* background: linear-gradient(to top, #c77771, rgba(103, 136, 209, 0.3), transparent);
+	filter: drop-shadow(0px -8px 12px rgba(173, 216, 230, 0.5)); */
+  border-radius: 6px;
   z-index: 2;
   box-sizing: border-box;
 }

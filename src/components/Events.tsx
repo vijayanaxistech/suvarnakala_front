@@ -1,10 +1,11 @@
-// components/CategoryGrid.tsx
-import Image from 'next/image';
-import bridalBliss from '../assets/Rectangle 939.png';
-import dazzlingDiamonds from '../assets/Rectangle 940.png';
-import goldenClassic from '../assets/Rectangle 941.png';
-import effortlessEveryday from '../assets/Rectangle 942.png';
+'use client';
 
+import Image from 'next/image';
+import Head from 'next/head'; // For SEO metadata
+import bridalBliss from '../assets/Bridal Bliss.jpg';
+import dazzlingDiamonds from '../assets/2- Diamonds.jpg';
+import goldenClassic from '../assets/3- Gold Classic.jpg';
+import effortlessEveryday from '../assets/1- Effortless Every day.jpg';
 import styles from '../app/page.module.css';
 
 const categories = [
@@ -15,47 +16,101 @@ const categories = [
 ];
 
 export default function CategoryGrid() {
+  // Structured data for SEO (JSON-LD)
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'Suvarnakala Jewelry Categories',
+    description:
+      'Explore Suvarnakala’s jewelry collections, including Bridal Bliss, Dazzling Diamonds, Golden Classic, and Effortless Everyday, designed for every occasion.',
+    itemListElement: categories.map((category, index) => ({
+      '@type': 'ProductGroup',
+      position: index + 1,
+      item: {
+        '@type': 'Product',
+        name: category.title,
+        image: category.img.src,
+        description: `Suvarnakala's ${category.title} jewelry collection for special occasions.`,
+      },
+    })),
+  };
+
   return (
-    <div className=" p-5 ">
-      <div className="custom-heading-wrapper d-flex align-items-center mb-4">
-        <h2 className="m-0 custom-heading text-wrap me-3">
-          <span className="heading-underline">
-            The Right Fit <span className="text-red">for Every Event :</span>
-          </span>
-        </h2>
+    <>
+      {/* SEO Metadata */}
+      <Head>
+        <title>Suvarnakala Jewelry Collections - Bridal, Diamonds, Gold, Everyday</title>
+        <meta
+          name="description"
+          content="Discover Suvarnakala’s jewelry collections: Bridal Bliss, Dazzling Diamonds, Golden Classic, and Effortless Everyday, crafted for every occasion from casual to glamorous."
+        />
+        <meta
+          name="keywords"
+          content="Suvarnakala, Bridal Bliss, Dazzling Diamonds, Golden Classic, Effortless Everyday, jewelry collections, gold jewelry, diamond jewelry"
+        />
+        <meta name="robots" content="index, follow" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="canonical" href="https://yourwebsite.com/collections" />
+        {/* Open Graph for social media */}
+        <meta
+          property="og:title"
+          content="Suvarnakala Jewelry Collections - Bridal, Diamonds, Gold, Everyday"
+        />
+        <meta
+          property="og:description"
+          content="Explore Suvarnakala’s jewelry collections for every occasion, from Bridal Bliss to Effortless Everyday."
+        />
+        <meta property="og:image" content={categories[0].img.src} />
+        <meta property="og:url" content="https://yourwebsite.com/collections" />
+        <meta property="og:type" content="website" />
+        {/* Structured Data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
+      </Head>
 
-        <span className="heading-extension">From Casual to Glam, We've Got You Covered </span>
-      </div>
-
-      <div className="row g-3">
-        <div className="col-12 col-md-6">
-          <div className={`${styles.card} position-relative`}>
-            <Image
-              src={categories[0].img}
-              alt={categories[0].title}
-              layout="fill"
-              objectFit="cover"
-              className="rounded"
-              priority
-            />
-            <div className={styles.overlay}>{categories[0].title}</div>
-          </div>
+      <div className="p-5" aria-label="Suvarnakala Jewelry Collections">
+        <div className="custom-heading-wrapper d-flex align-items-center mb-4">
+          <h2 className="m-0 custom-heading text-wrap me-3">
+            <span className="heading-underline">
+              The Right Fit <span className="text-red">for Every Event :</span>
+            </span>
+          </h2>
+          <span className="heading-extension">From Casual to Glam, We've Got You Covered</span>
         </div>
-        <div className="col-12 col-md-6 d-flex flex-column gap-3">
-          {categories.slice(1).map((item, index) => (
-            <div key={index} className={`${styles.cardSmall} position-relative`}>
+
+        <div className="row g-3">
+          <div className="col-12 col-md-6">
+            <div className={`${styles.card} position-relative`}>
               <Image
-                src={item.img}
-                alt={item.title}
+                src={categories[0].img}
+                alt={`Suvarnakala ${categories[0].title} Jewelry Collection`}
                 layout="fill"
                 objectFit="cover"
                 className="rounded"
+                priority
               />
-              <div className={styles.overlay}>{item.title}</div>
+              <div className={styles.overlay}>{categories[0].title}</div>
             </div>
-          ))}
+          </div>
+          <div className="col-12 col-md-6 d-flex flex-column gap-3">
+            {categories.slice(1).map((item, index) => (
+              <div key={index} className={`${styles.cardSmall} position-relative`}>
+                <Image
+                  src={item.img}
+                  alt={`Suvarnakala ${item.title} Jewelry Collection`}
+                  layout="fill"
+                  objectFit="cover"
+                  className="rounded"
+                  loading="lazy"
+                />
+                <div className={styles.overlay}>{item.title}</div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
