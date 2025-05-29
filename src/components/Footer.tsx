@@ -66,10 +66,7 @@ export default function Footer() {
         <meta name="robots" content="index, follow" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         {/* Open Graph for social media */}
-        <meta
-          property="og:title"
-          content="Suvarnakala - Personalized Jewelry Experiences"
-        />
+        <meta property="og:title" content="Suvarnakala - Personalized Jewelry Experiences" />
         <meta
           property="og:description"
           content="Connect with Suvarnakala for exquisite jewelry crafted with timeless elegance. Visit us in Ahmedabad or online."
@@ -194,13 +191,7 @@ export default function Footer() {
           <div className="d-flex align-items-center my-2">
             <div className="flex-grow-1 border-top border-secondary"></div>
             <div className="px-3">
-              <Image
-                src={leaf}
-                alt="Decorative Leaf Icon"
-                width={70}
-                height={70}
-                loading="lazy"
-              />
+              <Image src={leaf} alt="Decorative Leaf Icon" width={70} height={70} loading="lazy" />
             </div>
             <div className="flex-grow-1 border-top border-secondary"></div>
           </div>

@@ -1,29 +1,19 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import Head from 'next/head'; // For SEO metadata
+import Head from 'next/head';
+import Image from 'next/image';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import Image from 'next/image';
-import API from '../lib/api';
 
-// Placeholder for line image (replace with actual import or remove if not needed)
-import line from '../assets/line466.png';
-
-// Configure base URL for API
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
-
-// Interface for Moment
 interface Moment {
   _id: string;
   imagePath: string;
   createdAt: string;
 }
 
-// Interface for API response
-interface MomentsResponse {
+interface MomentsProps {
   moments: Moment[];
+  baseUrl?: string;
 }
 
 const responsive = {
@@ -49,22 +39,7 @@ const responsive = {
   },
 };
 
-const Moments: React.FC = () => {
-  const [moments, setMoments] = useState<Moment[]>([]);
-
-  // Fetch moments on component mount
-  useEffect(() => {
-    const fetchMoments = async () => {
-      try {
-        const response = await API.get<MomentsResponse>('/api/moments');
-        setMoments(response.data.moments);
-      } catch (error: any) {
-        console.error('Error fetching moments:', error.response?.data?.message || 'Server error');
-      }
-    };
-    fetchMoments();
-  }, []);
-
+const Moments: React.FC<MomentsProps> = ({ moments = [], baseUrl = 'http://localhost:5000' }) => {
   // Structured data for SEO (JSON-LD)
   const structuredData = {
     '@context': 'https://schema.org',
@@ -75,7 +50,7 @@ const Moments: React.FC = () => {
     itemListElement: moments.map((moment, index) => ({
       '@type': 'ImageObject',
       position: index + 1,
-      contentUrl: `${BASE_URL}/${moment.imagePath}`,
+      contentUrl: `${baseUrl}/${moment.imagePath}`,
       name: `Suvarnakala Moment ${index + 1}`,
       description: `A defining moment from Suvarnakala’s collection, captured on ${new Date(moment.createdAt).toLocaleDateString()}`,
     })),
@@ -83,7 +58,6 @@ const Moments: React.FC = () => {
 
   return (
     <>
-      {/* SEO Metadata */}
       <Head>
         <title>Suvarnakala Defining Moments - Elegant Jewelry for Every Occasion</title>
         <meta
@@ -97,7 +71,6 @@ const Moments: React.FC = () => {
         <meta name="robots" content="index, follow" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="canonical" href="https://yourwebsite.com/moments" />
-        {/* Open Graph for social media */}
         <meta
           property="og:title"
           content="Suvarnakala Defining Moments - Elegant Jewelry for Every Occasion"
@@ -108,18 +81,21 @@ const Moments: React.FC = () => {
         />
         <meta
           property="og:image"
-          content={moments.length > 0 ? `${BASE_URL}/${moments[0].imagePath}` : ''}
+          content={
+            moments.length > 0
+              ? `${baseUrl}/${moments[0].imagePath}`
+              : 'https://via.placeholder.com/300x180?text=No+Image'
+          }
         />
         <meta property="og:url" content="https://yourwebsite.com/moments" />
         <meta property="og:type" content="website" />
-        {/* Structured Data */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
       </Head>
 
-      <div className="p-5 py-5" aria-label="Suvarnakala Defining Moments Carousel">
+      <div className="p-5 py-5" aria-label="Suvarnakala Defining Moments Section">
         <div className="custom-heading-wrapper d-flex align-items-center mb-4">
           <h2 className="m-0 custom-heading text-wrap me-3">
             <span className="heading-underline">
@@ -130,44 +106,53 @@ const Moments: React.FC = () => {
         </div>
 
         <div className="mt-4">
-          <Carousel
-            responsive={responsive}
-            infinite={true}
-            autoPlay={true}
-            autoPlaySpeed={3000}
-            showDots={true}
-            arrows={false}
-            containerClass="carousel-container"
-            itemClass="px-2 pb-5"
-            aria-live="polite"
-          >
-            {moments.map((moment, index) => (
-              <div
-                className="card border-0 shadow-sm"
-                key={moment._id}
-                role="group"
-                aria-label={`Moment ${index + 1}: Suvarnakala Jewelry Moment`}
-              >
+          {moments.length === 0 ? (
+            <div className="text-center" role="alert">
+              No moments available. Please check the admin panel or try again later.
+            </div>
+          ) : (
+            <Carousel
+              responsive={responsive}
+              infinite={true}
+              autoPlay={true}
+              autoPlaySpeed={3000}
+              showDots={true}
+              arrows={false}
+              containerClass="carousel-container"
+              itemClass="px-2 pb-5"
+              aria-live="polite"
+            >
+              {moments.map((moment, index) => (
                 <div
-                  style={{
-                    position: 'relative',
-                    width: '100%',
-                    paddingTop: '60%',
-                    overflow: 'hidden',
-                  }}
+                  className="card border-0 shadow-sm"
+                  key={moment._id}
+                  role="group"
+                  aria-label={`Moment ${index + 1}: Suvarnakala Jewelry Moment`}
                 >
-                  <Image
-                    src={`${BASE_URL}/${moment.imagePath}`}
-                    alt={`Suvarnakala Defining Moment ${index + 1} - Jewelry Design`}
-                    fill
-                    sizes="(max-width: 576px) 100vw, 300px"
-                    style={{ objectFit: 'cover' }}
-                    loading="lazy"
-                  />
+                  <div
+                    style={{
+                      position: 'relative',
+                      width: '100%',
+                      paddingTop: '60%',
+                      overflow: 'hidden',
+                    }}
+                  >
+                    <Image
+                      src={`${baseUrl}/${moment.imagePath}`}
+                      alt={`Suvarnakala Defining Moment ${index + 1} - Jewelry Design`}
+                      fill
+                      sizes="(max-width: 576px) 100vw, 300px"
+                      style={{ objectFit: 'cover' }}
+                      loading="lazy"
+                      onError={(e) => {
+                        e.currentTarget.src = 'https://via.placeholder.com/300x180?text=No+Image';
+                      }}
+                    />
+                  </div>
                 </div>
-              </div>
-            ))}
-          </Carousel>
+              ))}
+            </Carousel>
+          )}
         </div>
       </div>
     </>

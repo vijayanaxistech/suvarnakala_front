@@ -10,7 +10,7 @@ const VideoSection: React.FC = () => {
         padding: 0,
         boxSizing: 'border-box',
       }}
-      className="rounded-0 mt-1 "
+      className="rounded-0  "
     >
       <video
         style={{

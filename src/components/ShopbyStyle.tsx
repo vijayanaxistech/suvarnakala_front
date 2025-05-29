@@ -1,10 +1,8 @@
+// components/ShopbyStyle.tsx
 'use client';
 
-import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
-import API from '../lib/api'; // Adjust path based on your project structure
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 // Define category interface based on backend response
 interface Category {
@@ -13,33 +11,21 @@ interface Category {
   image?: string;
 }
 
-const ShopStyle: React.FC = () => {
-  const [categories, setCategories] = useState<Category[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+interface ShopbyStyleProps {
+  categories: Category[];
+  isLoading?: boolean; // Optional, in case you want to handle loading state
+  baseUrl?: string; // Pass BASE_URL as a prop
+}
 
-  // Get base URL from API instance
-  const BASE_URL = API.defaults.baseURL || 'http://localhost:5000';
-
-  // Fetch categories on component mount
-  useEffect(() => {
-    const fetchCategories = async () => {
-      setIsLoading(true);
-      try {
-        const response = await API.get<{ data: Category[] }>('api/productscategories');
-        setCategories(response.data);
-      } catch (error: any) {
-        console.error('Error fetching categories:', error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    fetchCategories();
-  }, []);
-
+const ShopbyStyle: React.FC<ShopbyStyleProps> = ({
+  categories,
+  isLoading = false,
+  baseUrl = 'http://localhost:5000',
+}) => {
   // Display only the first 7 categories
   const displayedCategories = categories.slice(0, 7);
 
-  // Handle image load error
+  // Handle image load error (client-side fallback, but safe for SSR)
   const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
     e.currentTarget.src = 'https://via.placeholder.com/250x250?text=No+Image';
   };
@@ -57,7 +43,9 @@ const ShopStyle: React.FC = () => {
       item: {
         '@type': 'Product',
         name: category.name,
-        image: category.image ? `${BASE_URL}/${category.image}` : 'https://via.placeholder.com/250x250?text=No+Image',
+        image: category.image
+          ? `${baseUrl}/${category.image}`
+          : 'https://via.placeholder.com/250x250?text=No+Image',
         description: `Suvarnakala ${category.name} jewelry collection for special occasions.`,
       },
     })),
@@ -92,7 +80,7 @@ const ShopStyle: React.FC = () => {
           property="og:image"
           content={
             displayedCategories.length > 0 && displayedCategories[0].image
-              ? `${BASE_URL}/${displayedCategories[0].image}`
+              ? `${baseUrl}/${displayedCategories[0].image}`
               : 'https://via.placeholder.com/250x250?text=No+Image'
           }
         />
@@ -122,11 +110,16 @@ const ShopStyle: React.FC = () => {
           ) : (
             <>
               {displayedCategories.map((item) => (
-                <div className="category-item" key={item._id} role="group" aria-label={`Category: ${item.name}`}>
+                <div
+                  className="category-item"
+                  key={item._id}
+                  role="group"
+                  aria-label={`Category: ${item.name}`}
+                >
                   <Image
                     src={
                       item.image
-                        ? `${BASE_URL}/${item.image}`
+                        ? `${baseUrl}/${item.image}`
                         : 'https://via.placeholder.com/250x250?text=No+Image'
                     }
                     alt={`Suvarnakala ${item.name} Jewelry Collection`}
@@ -142,7 +135,11 @@ const ShopStyle: React.FC = () => {
               ))}
 
               {categories.length > 7 && (
-                <div className="category-item extra-category" role="group" aria-label="Explore Additional Categories">
+                <div
+                  className="category-item extra-category"
+                  role="group"
+                  aria-label="Explore Additional Categories"
+                >
                   <div
                     className="d-flex flex-column justify-content-center align-items-center text-red text-center rounded"
                     style={{
@@ -164,4 +161,4 @@ const ShopStyle: React.FC = () => {
   );
 };
 
-export default ShopStyle;
+export default ShopbyStyle;

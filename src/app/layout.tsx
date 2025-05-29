@@ -6,6 +6,13 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import type { ReactNode } from 'react';
 
+export const metadata = {
+  title: 'Suvarnakala Pvt. Ltd.',
+  icons: {
+    icon: './favicon.ico',
+  },
+};
+
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
@@ -14,11 +21,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap"
           rel="stylesheet"
         />
-
         <link
           href="https://fonts.googleapis.com/css2?family=Cookie&display=swap"
           rel="stylesheet"
-        ></link>
+        />
       </head>
       <body>
         <Header />

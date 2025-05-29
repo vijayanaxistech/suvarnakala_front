@@ -1,3 +1,4 @@
+// components/TopCollection.tsx
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -6,73 +7,35 @@ import Image from 'next/image';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import API from '../lib/api';
 
-// Define interface for trending design
 interface TrendingDesign {
   _id: string;
   name: string;
   image?: string;
 }
 
-// Carousel responsive settings
+interface TopCollectionProps {
+  initialDesigns: TrendingDesign[];
+  baseUrl: string;
+}
+
 const responsive = {
-  superLargeDesktop: {
-    breakpoint: { max: 4000, min: 1441 },
-    items: 5,
-  },
-  desktop: {
-    breakpoint: { max: 1440, min: 1024 },
-    items: 4,
-  },
-  tablet: {
-    breakpoint: { max: 1023, min: 768 },
-    items: 3,
-  },
-  smallTablet: {
-    breakpoint: { max: 767, min: 576 },
-    items: 2,
-  },
-  mobile: {
-    breakpoint: { max: 575, min: 0 },
-    items: 1,
-  },
+  superLargeDesktop: { breakpoint: { max: 4000, min: 1441 }, items: 5 },
+  desktop: { breakpoint: { max: 1440, min: 1024 }, items: 4 },
+  tablet: { breakpoint: { max: 1023, min: 768 }, items: 3 },
+  smallTablet: { breakpoint: { max: 767, min: 576 }, items: 2 },
+  mobile: { breakpoint: { max: 575, min: 0 }, items: 1 },
 };
 
-const TopCollection: React.FC = () => {
-  const [designs, setDesigns] = useState<TrendingDesign[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+const TopCollection: React.FC<TopCollectionProps> = ({ initialDesigns, baseUrl }) => {
+  const [designs, setDesigns] = useState<TrendingDesign[]>(initialDesigns);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  // Base URL for API
-  const BASE_URL = API.defaults.baseURL || 'http://localhost:5000';
-
-  // Fetch trending designs on mount
+  // Optionally, you can fetch more data client-side if needed
   useEffect(() => {
-    const fetchDesigns = async () => {
-      setIsLoading(true);
-      try {
-        const response = await API.get('api/trendingdesigns');
-        // Handle both direct array and wrapped data
-        const fetchedDesigns = Array.isArray(response.data)
-          ? response.data
-          : response.data.data || [];
-        setDesigns(fetchedDesigns);
-      } catch (error: any) {
-        console.error('Error fetching trending designs:', error);
-        setDesigns([]);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    fetchDesigns();
-  }, []);
+    setDesigns(initialDesigns); // Use server-fetched data
+  }, [initialDesigns]);
 
-  // Handle image load error
-  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
-    e.currentTarget.src = 'https://via.placeholder.com/300x300?text=No+Image';
-  };
-
-  // Structured Data for SEO (JSON-LD)
   const structuredData = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
@@ -83,23 +46,21 @@ const TopCollection: React.FC = () => {
       '@type': 'Product',
       position: index + 1,
       name: design.name,
-      image: design.image ? `${BASE_URL}/${design.image}` : 'https://via.placeholder.com/300x300?text=No+Image',
+      image: design.image
+        ? `${baseUrl}/${design.image}`
+        : 'https://via.placeholder.com/300x300?text=No+Image',
       description: `Suvarnakala ${design.name} trending jewelry design.`,
-      brand: {
-        '@type': 'Brand',
-        name: 'Suvarnakala',
-      },
+      brand: { '@type': 'Brand', name: 'Suvarnakala' },
     })),
   };
 
   return (
     <>
-      {/* SEO Metadata */}
       <Head>
         <title>Suvarnakala Top Trending Jewelry Designs - Latest Styles</title>
         <meta
           name="description"
-          content="Discover Suvarnakala’s top trending jewelry designs, featuring the latest in gold, diamond, and more. Elevate your look with our latest styles."
+          content="Discover Suvarnakala’s top trending jewelry designs, featuring the latest in gold, diamond, and more."
         />
         <meta
           name="keywords"
@@ -108,7 +69,6 @@ const TopCollection: React.FC = () => {
         <meta name="robots" content="index, follow" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="canonical" href="https://yourwebsite.com/top-trending-designs" />
-        {/* Open Graph for social media */}
         <meta
           property="og:title"
           content="Suvarnakala Top Trending Jewelry Designs - Latest Styles"
@@ -121,13 +81,12 @@ const TopCollection: React.FC = () => {
           property="og:image"
           content={
             designs.length > 0 && designs[0].image
-              ? `${BASE_URL}/${designs[0].image}`
+              ? `${baseUrl}/${designs[0].image}`
               : 'https://via.placeholder.com/300x300?text=No+Image'
           }
         />
         <meta property="og:url" content="https://yourwebsite.com/top-trending-designs" />
         <meta property="og:type" content="website" />
-        {/* Structured Data */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
@@ -180,14 +139,13 @@ const TopCollection: React.FC = () => {
                     <Image
                       src={
                         item.image
-                          ? `${BASE_URL}/${item.image}`
+                          ? `${baseUrl}/${item.image}`
                           : 'https://via.placeholder.com/300x300?text=No+Image'
                       }
                       alt={`Suvarnakala ${item.name} Trending Jewelry Design`}
                       fill
                       sizes="(max-width: 576px) 100vw, 300px"
                       style={{ objectFit: 'cover' }}
-                      onError={handleImageError}
                       loading="lazy"
                     />
                   </div>

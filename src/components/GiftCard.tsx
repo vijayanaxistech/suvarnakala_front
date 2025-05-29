@@ -7,7 +7,7 @@ import giftcard from '../assets/Gift Card 2.png';
 import goldIcon from '../assets/6fe12d1ca7e63ca786546007ade02bf47d451b70.png';
 import calendarIcon from '../assets/58ffe92b446f8b39c2730187c40eb5601690961e.png';
 
-const GiftCardSection = () => {
+const GiftCard = () => {
   // Structured data for SEO (JSON-LD)
   const structuredData = {
     '@context': 'https://schema.org',
@@ -148,4 +148,4 @@ const GiftCardSection = () => {
   );
 };
 
-export default GiftCardSection;
+export default GiftCard;
