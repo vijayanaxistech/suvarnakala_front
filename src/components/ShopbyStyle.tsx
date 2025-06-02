@@ -3,8 +3,8 @@
 
 import Head from 'next/head';
 import Image from 'next/image';
+import Link from 'next/link'; // ✅ Add this import
 
-// Define category interface based on backend response
 interface Category {
   _id: string;
   name: string;
@@ -13,8 +13,8 @@ interface Category {
 
 interface ShopbyStyleProps {
   categories: Category[];
-  isLoading?: boolean; // Optional, in case you want to handle loading state
-  baseUrl?: string; // Pass BASE_URL as a prop
+  isLoading?: boolean;
+  baseUrl?: string;
 }
 
 const ShopbyStyle: React.FC<ShopbyStyleProps> = ({
@@ -22,15 +22,12 @@ const ShopbyStyle: React.FC<ShopbyStyleProps> = ({
   isLoading = false,
   baseUrl = 'http://localhost:5000',
 }) => {
-  // Display only the first 7 categories
   const displayedCategories = categories.slice(0, 7);
 
-  // Handle image load error (client-side fallback, but safe for SSR)
   const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
     e.currentTarget.src = 'https://via.placeholder.com/250x250?text=No+Image';
   };
 
-  // Structured data for SEO (JSON-LD)
   const structuredData = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
@@ -53,12 +50,11 @@ const ShopbyStyle: React.FC<ShopbyStyleProps> = ({
 
   return (
     <>
-      {/* SEO Metadata */}
       <Head>
         <title>Shop Suvarnakala Jewelry by Style - Find Your Perfect Match</title>
         <meta
           name="description"
-          content="Explore Suvarnakala’s jewelry collections by style, from bridal to everyday wear. Find the perfect match for every occasion with our exquisite designs."
+          content="Explore Suvarnakala’s jewelry collections by style, from bridal to everyday wear."
         />
         <meta
           name="keywords"
@@ -67,7 +63,6 @@ const ShopbyStyle: React.FC<ShopbyStyleProps> = ({
         <meta name="robots" content="index, follow" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="canonical" href="https://yourwebsite.com/shop-by-style" />
-        {/* Open Graph for social media */}
         <meta
           property="og:title"
           content="Shop Suvarnakala Jewelry by Style - Find Your Perfect Match"
@@ -86,7 +81,6 @@ const ShopbyStyle: React.FC<ShopbyStyleProps> = ({
         />
         <meta property="og:url" content="https://yourwebsite.com/shop-by-style" />
         <meta property="og:type" content="website" />
-        {/* Structured Data */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
@@ -103,25 +97,21 @@ const ShopbyStyle: React.FC<ShopbyStyleProps> = ({
           <span className="heading-extension">Find Your Perfect Match</span>
         </div>
 
-        {/* Scrollable container on mobile, grid on desktop */}
         <div className="categories-container">
           {isLoading ? (
             <div className="text-center">Loading...</div>
           ) : (
             <>
               {displayedCategories.map((item) => (
-                <div
-                  className="category-item"
+                <Link
+                  href={`/collections?category=${encodeURIComponent(item.name)}`}
                   key={item._id}
+                  className="category-item text-decoration-none"
                   role="group"
                   aria-label={`Category: ${item.name}`}
                 >
                   <Image
-                    src={
-                      item.image
-                        ? `${baseUrl}/${item.image}`
-                        : 'https://via.placeholder.com/250x250?text=No+Image'
-                    }
+                    src={`${baseUrl}/${item.image}`}
                     alt={`Suvarnakala ${item.name} Jewelry Collection`}
                     width={250}
                     height={250}
@@ -131,12 +121,13 @@ const ShopbyStyle: React.FC<ShopbyStyleProps> = ({
                     loading="lazy"
                   />
                   <p className="text-red mt-2 fs-5 text-center">{item.name}</p>
-                </div>
+                </Link>
               ))}
 
               {categories.length > 7 && (
-                <div
-                  className="category-item extra-category"
+                <Link
+                  href="/collections"
+                  className="category-item extra-category text-decoration-none"
                   role="group"
                   aria-label="Explore Additional Categories"
                 >
@@ -151,7 +142,7 @@ const ShopbyStyle: React.FC<ShopbyStyleProps> = ({
                     <p className="fs-5">categories</p>
                   </div>
                   <p className="text-red mt-2 fs-5 text-center">View all</p>
-                </div>
+                </Link>
               )}
             </>
           )}

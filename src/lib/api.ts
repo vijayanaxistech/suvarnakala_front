@@ -1,7 +1,6 @@
-// utils/api.ts
 import axios from 'axios';
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:5000';
 
 const API = axios.create({
   baseURL: BASE_URL,
@@ -30,7 +29,6 @@ export const getMoments = async () => {
   return res.data.moments || [];
 };
 
-// ✅ FIX: Avoid double BASE_URL
 export const getBachatMahotsavImages = async (): Promise<string[]> => {
   const res = await API.get('/api/bachatMahotsav');
   return (res.data.bachatMahotsavs || []).map((item: any) => {
@@ -42,6 +40,11 @@ export const getBachatMahotsavImages = async (): Promise<string[]> => {
 export const getTrendingDesigns = async () => {
   const res = await API.get('/api/trendingdesigns');
   return Array.isArray(res.data) ? res.data : res.data.data || [];
+};
+
+export const getProducts = async () => {
+  const res = await API.get('/api/products');
+  return Array.isArray(res.data) ? res.data : [];
 };
 
 export default API;

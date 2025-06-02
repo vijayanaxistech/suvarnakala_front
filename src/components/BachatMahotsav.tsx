@@ -72,7 +72,7 @@ export default function Celebrate({ bachatMahotsavImages }: CelebrateProps) {
                     style={{ display: 'block', marginTop: '2px', width: '100%', height: 'auto' }}
                   />
                 </div>
-                <p className='text-justify'>
+                <p className="text-justify">
                   Join our exclusive <span className="dark_font">Bachat Mahotsav</span> and enjoy
                   irresistible offers on gold, diamond, and silver jewelry. Special discounts,
                   making charge waivers, and festive combos – all crafted to bring sparkle to your
@@ -85,22 +85,10 @@ export default function Celebrate({ bachatMahotsavImages }: CelebrateProps) {
                 </p>
               </div>
 
-<div className="d-flex gap-3 align-items-center">
-  <Image 
-    src={playstore} 
-    alt="Play Store" 
-    width={120} 
-    height={40} 
-  />
-  <Image 
-    src={appstore} 
-    alt="App Store" 
-    width={120} 
-    height={40} 
-  />
-</div>
-
-
+              <div className="d-flex gap-3 align-items-center">
+                <Image src={playstore} alt="Play Store" width={120} height={40} />
+                <Image src={appstore} alt="App Store" width={120} height={40} />
+              </div>
             </div>
 
             <div className="col-md-6">
