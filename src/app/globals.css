@@ -35,6 +35,9 @@
   font-size: 20px;
 }
 
+.bg-color{
+  background-color: #F5E7D6;
+}
 /* ==================== Header Section  ==================== */
 
 .header-marquee {
@@ -303,6 +306,94 @@
   max-width: 300px;
 }
 
+/* ==================== About Us Page ==================== */
+
+.rotating-circle-badge {
+  position: absolute;
+  top: -45px;
+  left: -20px;
+  width: 130px;
+  height: 130px;
+  z-index: 10;
+}
+
+.rotating-svg {
+  width: 100%;
+  height: 100%;
+  animation: rotateText 10s linear infinite;
+}
+.text-justify{
+  text-align: justify;
+}
+
+.center-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 80px;
+  height: 80px;
+  background-color: #033a79; /* Dark blue */
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  font-size: 1.2rem;
+  z-index: 2;
+}
+
+@keyframes rotateText {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ==================== why choose us page  ==================== */
+
+
+.banner-wrapper {
+  position: relative;
+  width: 100%;
+  height: 400px;
+}
+
+.banner-content {
+  position: absolute;
+  top: 50%;
+  right: 5%;
+  transform: translateY(-50%);
+  text-align: right;
+  color: #000;
+}
+
+.banner-heading {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.banner-button {
+  display: inline-block; /* fit content */
+  margin-top: 10px;
+  padding: 10px 20px;
+  border: 2px solid #fff;
+  color: #fff;
+  background-color: transparent;
+  text-decoration: none;
+  text-align: center;
+  transition: all 0.3s ease-in-out;
+}
+
+
+.banner-button:hover {
+  background-color: #033a79;
+  color: #fff;
+}
+
 /* ==================== Media Query  ==================== */
 
 @media (min-width: 768px) {
@@ -345,74 +436,73 @@
 }
 
 @media (max-width: 768px) {
-  /* Stack columns vertically and center */
   .hero-section .row {
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    padding: 0 !important;
+    margin: 0 auto !important;
   }
 
   .hero-section .col-md-6 {
     width: 100% !important;
-    max-width: 100% !important;
-    position: relative !important;
-    /* allow absolute children */
-    margin-bottom: 2rem;
-    text-align: center;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin-bottom: 2rem !important;
+    text-align: center !important;
   }
 
-  /* Remove desktop absolute positioning from jewelry container */
   .hero-section .jewellary_image {
     position: relative !important;
-    width: 90vw;
-    max-width: 350px;
-    margin: 0 auto;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 100% !important;
+    max-width: 350px !important;
+    margin: 0 auto !important;
   }
 
   .hero-section .jewellary_image img {
     width: 100% !important;
     height: auto !important;
+    object-fit: cover !important;
+    display: block !important;
   }
 
   .hero-section .mobile_img {
     position: absolute !important;
-    bottom: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 45%;
-    max-width: 160px;
-    height: auto;
-    margin: 0;
-    z-index: 10;
+    bottom: 10px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: 45% !important;
+    max-width: 160px !important;
+    height: auto !important;
+    margin: 0 !important;
+    z-index: 10 !important;
   }
 
   .hero-section .mobile_img img {
     width: 100% !important;
     height: auto !important;
+    display: block !important;
+  }
+
+
+
+  .hero-section .main-title {
+    padding: 0 15px !important;
+    text-align: center !important;
   }
 
   .hero-section .main-title h2::after {
     display: none !important;
   }
-
-  .hero-section .main-title {
-    padding: 0 15px;
-  }
-
-  .store_demo {
-    width: 90vw;
-    max-width: 350px;
-    margin: 20px auto 0 auto;
-    text-align: center;
-  }
-
-  .store_demo img {
-    width: 100% !important;
-    height: auto !important;
-    object-fit: contain;
-    display: inline-block;
-  }
 }
+
 
 @media (max-width: 767.98px) {
   .custom-heading-wrapper {
@@ -445,3 +535,5 @@
     max-width: none;
   }
 }
+
+

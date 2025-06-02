@@ -31,9 +31,8 @@ const TopCollection: React.FC<TopCollectionProps> = ({ initialDesigns, baseUrl }
   const [designs, setDesigns] = useState<TrendingDesign[]>(initialDesigns);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  // Optionally, you can fetch more data client-side if needed
   useEffect(() => {
-    setDesigns(initialDesigns); // Use server-fetched data
+    setDesigns(initialDesigns);
   }, [initialDesigns]);
 
   const structuredData = {
@@ -47,7 +46,9 @@ const TopCollection: React.FC<TopCollectionProps> = ({ initialDesigns, baseUrl }
       position: index + 1,
       name: design.name,
       image: design.image
-        ? `${baseUrl}/${design.image}`
+        ? design.image.startsWith('http')
+          ? design.image
+          : `${baseUrl}/${design.image}`
         : 'https://via.placeholder.com/300x300?text=No+Image',
       description: `Suvarnakala ${design.name} trending jewelry design.`,
       brand: { '@type': 'Brand', name: 'Suvarnakala' },
@@ -120,43 +121,45 @@ const TopCollection: React.FC<TopCollectionProps> = ({ initialDesigns, baseUrl }
               itemClass="px-2 pb-5"
               aria-live="polite"
             >
-              {designs.map((item) => (
-                <div
-                  key={item._id}
-                  className="bg-transparent"
-                  role="group"
-                  aria-label={`Trending Design: ${item.name}`}
-                >
+              {designs.map((item) => {
+                const imageUrl = item.image?.startsWith('http')
+                  ? item.image
+                  : `${baseUrl}/${item.image}`;
+
+                return (
                   <div
-                    className="rounded-top-4"
-                    style={{
-                      position: 'relative',
-                      width: '100%',
-                      paddingTop: '100%',
-                      overflow: 'hidden',
-                    }}
+                    key={item._id}
+                    className="bg-transparent"
+                    role="group"
+                    aria-label={`Trending Design: ${item.name}`}
                   >
-                    <Image
-                      src={
-                        item.image
-                          ? `${baseUrl}/${item.image}`
-                          : 'https://via.placeholder.com/300x300?text=No+Image'
-                      }
-                      alt={`Suvarnakala ${item.name} Trending Jewelry Design`}
-                      fill
-                      sizes="(max-width: 576px) 100vw, 300px"
-                      style={{ objectFit: 'cover' }}
-                      loading="lazy"
-                    />
+                    <div
+                      className="rounded-top-4"
+                      style={{
+                        position: 'relative',
+                        width: '100%',
+                        paddingTop: '100%',
+                        overflow: 'hidden',
+                      }}
+                    >
+                      <Image
+                        src={imageUrl}
+                        alt={`Suvarnakala ${item.name} Trending Jewelry Design`}
+                        fill
+                        sizes="(max-width: 576px) 100vw, 300px"
+                        style={{ objectFit: 'cover' }}
+                        loading="lazy"
+                      />
+                    </div>
+                    <div
+                      className="text-white text-center py-3 rounded-bottom-4"
+                      style={{ backgroundColor: '#033A79', marginTop: '-4px' }}
+                    >
+                      {item.name}
+                    </div>
                   </div>
-                  <div
-                    className="text-white text-center py-3 rounded-bottom-4"
-                    style={{ backgroundColor: '#033A79', marginTop: '-4px' }}
-                  >
-                    {item.name}
-                  </div>
-                </div>
-              ))}
+                );
+              })}
             </Carousel>
           )}
         </div>

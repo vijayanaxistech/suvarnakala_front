@@ -26,11 +26,13 @@ export default async function Home() {
   const heroes = await getHeroes();
   const moments = await getMoments();
   const trendingDesigns = await getTrendingDesigns();
-const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
-if (!baseUrl) {
-  throw new Error('Missing NEXT_PUBLIC_API_BASE_URL in .env.local');
-}
+  const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+
+  if (!baseUrl) {
+    throw new Error('Missing NEXT_PUBLIC_API_BASE_URL in .env.local');
+  }
+
   return (
     <>
       <Hero heroes={heroes} baseUrl={baseUrl} />

@@ -17,9 +17,11 @@ const Header: React.FC = () => {
   // Your navigation links data
   const navLinks = [
     { href: '/', label: 'Home' },
-    { href: '#about', label: 'About Us' },
+    { href: '/about', label: 'About Us' },
     { href: '#collections', label: 'Collections' },
     { href: '#showrooms', label: 'Our Showrooms' },
+    { href: '#events', label: 'Events' },
+    { href: '/why-us', label: 'Why Us' },
     { href: '#contact', label: 'Contact Us' },
     { href: '#appointment', label: 'Book an Appointment' },
   ];

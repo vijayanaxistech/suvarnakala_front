@@ -12,7 +12,7 @@ import {
   FaEnvelope,
   FaMapMarkerAlt,
 } from 'react-icons/fa';
-import googleplay from '../assets/playstore.png';
+import googleplay from '../assets/googleplay.png';
 import appstore from '../assets/appstore.png';
 import leaf from '../assets/Group 41992.png';
 

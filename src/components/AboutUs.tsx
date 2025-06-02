@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import Head from 'next/head'; // For SEO metadata
 import styles from '../app/page.module.css';
-import badge1 from '../assets/Group 41427.png';
+// import badge1 from '../assets/Group 41427.png';
 import logo from '../assets/Suvarnakala.png';
 import jewelryImage from '../assets/0b4fd82ca5984f9fbf3f4fd33751e69c27f12de0.jpg';
 
@@ -15,7 +15,6 @@ const AboutUs = () => {
     name: 'Suvarnakala',
     description:
       'Since 1970, Suvarnakala has been a symbol of timeless craftsmanship, creating exquisite gold, diamond, and jadtar jewelry that blends tradition with modern elegance.',
-    logo: badge1.src, // Using badge1 as a representative logo
     foundingDate: '1970',
     url: 'https://yourwebsite.com',
     sameAs: [
@@ -53,7 +52,6 @@ const AboutUs = () => {
           property="og:description"
           content="Discover Suvarnakala's legacy of crafting exquisite gold, diamond, and jadtar jewelry since 1970."
         />
-        <meta property="og:image" content={badge1.src} />
         <meta property="og:url" content="https://yourwebsite.com/about" />
         <meta property="og:type" content="website" />
         {/* Structured Data */}

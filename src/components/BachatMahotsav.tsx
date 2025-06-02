@@ -5,7 +5,9 @@ import Image from 'next/image';
 import Head from 'next/head';
 
 import mobile from '../assets/mobile.png';
-import storedemo from '../assets/store_demo.png';
+import playstore from '../assets/googleplay.png';
+import appstore from '../assets/appstore.png';
+
 import line from '../assets/line466.png';
 
 interface CelebrateProps {
@@ -70,7 +72,7 @@ export default function Celebrate({ bachatMahotsavImages }: CelebrateProps) {
                     style={{ display: 'block', marginTop: '2px', width: '100%', height: 'auto' }}
                   />
                 </div>
-                <p>
+                <p className='text-justify'>
                   Join our exclusive <span className="dark_font">Bachat Mahotsav</span> and enjoy
                   irresistible offers on gold, diamond, and silver jewelry. Special discounts,
                   making charge waivers, and festive combos – all crafted to bring sparkle to your
@@ -83,9 +85,22 @@ export default function Celebrate({ bachatMahotsavImages }: CelebrateProps) {
                 </p>
               </div>
 
-              <div className="store_demo">
-                <Image src={storedemo} alt="Jewelry store demonstration" />
-              </div>
+<div className="d-flex gap-3 align-items-center">
+  <Image 
+    src={playstore} 
+    alt="Play Store" 
+    width={120} 
+    height={40} 
+  />
+  <Image 
+    src={appstore} 
+    alt="App Store" 
+    width={120} 
+    height={40} 
+  />
+</div>
+
+
             </div>
 
             <div className="col-md-6">
@@ -95,7 +110,7 @@ export default function Celebrate({ bachatMahotsavImages }: CelebrateProps) {
                     src={bachatMahotsavImages[currentImageIndex]}
                     alt={`Bachat Mahotsav jewelry offer ${currentImageIndex + 1}`}
                     className=""
-                    style={{ maxHeight: '435px', width: '100%', objectFit: 'cover' }}
+                    style={{ maxHeight: '401px', width: '100%', objectFit: 'cover' }}
                     loading="lazy"
                   />
                 )}
