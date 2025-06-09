@@ -1,4 +1,3 @@
-// app/page.tsx
 import {
   getTestimonials,
   getBachatMahotsavImages,
@@ -6,6 +5,7 @@ import {
   getHeroes,
   getMoments,
   getTrendingDesigns,
+  BASE_URL, // ✅ From api.ts
 } from '../lib/api';
 
 import Hero from '../components/HeroCarousel';
@@ -27,22 +27,21 @@ export default async function Home() {
   const moments = await getMoments();
   const trendingDesigns = await getTrendingDesigns();
 
-  const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
-
-  if (!baseUrl) {
+  // ✅ No need to re-declare baseUrl — use BASE_URL directly
+  if (!BASE_URL) {
     throw new Error('Missing NEXT_PUBLIC_API_BASE_URL in .env.local');
   }
 
   return (
     <>
-      <Hero heroes={heroes} baseUrl={baseUrl} />
+      <Hero heroes={heroes} baseUrl={BASE_URL} />
       <CredibilitySection />
       <VideoSection />
-      <ShopbyStyle categories={categories} baseUrl={baseUrl} />
+      <ShopbyStyle categories={categories}  />
       <Products />
-      <TopTrendingDesigns initialDesigns={trendingDesigns} baseUrl={baseUrl} />
+      <TopTrendingDesigns initialDesigns={trendingDesigns} />
       <GiftCard />
-      <Moments moments={moments} baseUrl={baseUrl} />
+      <Moments moments={moments}  />
       <BachatMahotsav bachatMahotsavImages={bachatMahotsavImages} />
       <Testimonials testimonials={testimonials} />
     </>

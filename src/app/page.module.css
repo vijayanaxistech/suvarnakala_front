@@ -1,45 +1,3 @@
-/* code formatter run this script "  npx prettier --write .  " */
-
-.credibilitySection {
-  background-color: #f5e7d6;
-}
-
-.leftSection,
-.rightSection {
-  position: relative;
-  color: #333;
-  min-height: 100%;
-  overflow: hidden;
-}
-
-.leftSection::before,
-.rightSection::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: inherit;
-  opacity: 0.2;
-  z-index: 0;
-}
-
-.leftSection::before {
-  background-image: url('../assets/LeftBG.png');
-}
-
-.rightSection::before {
-  background-image: url('../assets/RightBG.png');
-}
-
-.leftSection > *,
-.rightSection > * {
-  position: relative;
-  z-index: 1;
-}
 
 .card,
 .cardSmall {
@@ -188,4 +146,17 @@
   .goldRightPanel img {
     border-radius: 0 0 10px 10px;
   }
+}
+
+.categoryItem .imageWrapper .categoryImage {
+  transition:
+    transform 0.3s ease,
+    opacity 0.3s ease,
+    border-radius 0.3s ease,
+    box-shadow 0.3s ease;
+}
+.categoryItem:hover .imageWrapper .categoryImage {
+  transform: scale(1.05);
+  opacity: 0.9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }

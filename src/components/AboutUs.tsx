@@ -1,134 +1,140 @@
 'use client';
 
+import React from 'react';
 import Image from 'next/image';
-import Head from 'next/head'; // For SEO metadata
-import styles from '../app/page.module.css';
-// import badge1 from '../assets/Group 41427.png';
-import logo from '../assets/Suvarnakala.png';
-import jewelryImage from '../assets/0b4fd82ca5984f9fbf3f4fd33751e69c27f12de0.jpg';
+import Carousel from 'react-multi-carousel';
+import 'react-multi-carousel/lib/styles.css';
 
-const AboutUs = () => {
-  // Structured data for SEO (JSON-LD)
-  const structuredData = {
-    '@context': 'https://schema.org',
-    '@type': 'Organization',
-    name: 'Suvarnakala',
+import demoBg from '../assets/demo_bg.png';
+import goldSet from '../assets/indian-traditional-jewellery_136354-6545.avif';
+import diamondSet from '../assets/gold-mangalsutra-necklace_864595-690.avif';
+import silverSet from '../assets/women-s-earings_8408-3.avif';
+
+const slides = [
+  {
+    content: "Timeless Gold Elegance",
     description:
-      'Since 1970, Suvarnakala has been a symbol of timeless craftsmanship, creating exquisite gold, diamond, and jadtar jewelry that blends tradition with modern elegance.',
-    foundingDate: '1970',
-    url: 'https://yourwebsite.com',
-    sameAs: [
-      'https://yourwebsite.com/about', // Add actual social media or related URLs
-    ],
-    contactPoint: {
-      '@type': 'ContactPoint',
-      contactType: 'Customer Service',
-      url: 'https://yourwebsite.com/contact',
-    },
-  };
+      "Experience the exquisite craftsmanship and unparalleled beauty of our exclusive gold jewelry collection—designed to celebrate every moment.",
+    explore: "→ Gold Collection",
+    image: goldSet,
+  },
+  {
+    content: "Sparkling Real Diamonds",
+    description:
+      "Discover the captivating sparkle and eternal allure of authentic diamonds, meticulously set to enhance your unique style.",
+    explore: "→ Diamond Treasures",
+    image: diamondSet,
+  },
+  {
+    content: "Exquisite Silver Designs",
+    description:
+      "Explore our stunning silver jewelry pieces, crafted to add a touch of grace and sophistication to any outfit.",
+    explore: "→ Silver Collection",
+    image: silverSet,
+  },
+];
 
+const responsive = {
+  all: {
+    breakpoint: { max: 3000, min: 0 },
+    items: 1,
+  },
+};
+
+const About = () => {
   return (
-    <>
-      {/* SEO Metadata */}
-      <Head>
-        <title>Suvarnakala - Timeless Jewelry Craftsmanship Since 1970</title>
-        <meta
-          name="description"
-          content="Discover Suvarnakala's legacy of crafting exquisite gold, diamond, and jadtar jewelry since 1970. Experience timeless tradition, quality, and elegance."
-        />
-        <meta
-          name="keywords"
-          content="Suvarnakala, gold jewelry, diamond jewelry, jadtar jewelry, craftsmanship, tradition, elegance"
-        />
-        <meta name="robots" content="index, follow" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="canonical" href="https://yourwebsite.com/about" />
-        {/* Open Graph for social media */}
-        <meta
-          property="og:title"
-          content="Suvarnakala - Timeless Jewelry Craftsmanship Since 1970"
-        />
-        <meta
-          property="og:description"
-          content="Discover Suvarnakala's legacy of crafting exquisite gold, diamond, and jadtar jewelry since 1970."
-        />
-        <meta property="og:url" content="https://yourwebsite.com/about" />
-        <meta property="og:type" content="website" />
-        {/* Structured Data */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-        />
-      </Head>
-
-      <div className={`container-fluid ${styles.credibilitySection}`}>
-        <div className="row">
-          {/* Left Side */}
-          <div className={`col-md-6 p-5 ${styles.leftSection}`}>
+    <section className="about_section">
+      <div className="container">
+        <div className="row d-flex align-items-center position-relative mt-3 mb-3">
+          {/* Left Column */}
+          <div className="col-md-6">
             <div className="custom-heading-wrapper d-flex align-items-center mb-4">
-              <h2 className="m-0 custom-heading text-wrap me-3">
-                <span className="heading-underline">
-                  Our <span className="text-red">Credibility </span>
+              <h3 className="m-0 custom-heading text-wrap me-3">
+                <span>
+                  Discover Our <span className="text-red">Variety</span>
                 </span>
-              </h2>
+                <div className="decorative-line">
+                  <div className="diamond"></div>
+                  <div className="line"></div>
+                  <div className="diamond"></div>
+                </div>
+              </h3>
             </div>
-
-            <h5 className="fw-bold mt-3 text-blue ">Timeless Elegance, Redefined</h5>
-            <p className="mt-3">
-              Discover the enduring charm of Gold, the brilliance of Real Diamonds, and the
-              innovation of Lab-Grown Diamonds. Whether you seek classic luxury, natural sparkle, or
-              sustainable sophistication, our carefully curated collection offers something for
-              every style and occasion. Crafted to perfection, each piece reflects purity, beauty,
-              and value you can treasure forever.
-            </p>
-            {/* <p>
-                We believe jewelry is more than adornment—it’s a personal expression of identity and
-                emotion. Designed with precision and care, our collections aim to empower women with
-                elegance and confidence.
-              </p> */}
-            <button className="btn custom-btn text-white mt-3">Read More</button>
+            <div className="about_title">
+              <h5 className="text-center text-md-start text-sm-center">
+                Timeless Elegance, Redefined
+              </h5>
+              <p className="text-justify mt-3">
+                Discover the enduring charm of Gold, the brilliance of Real Diamonds,
+                and the innovation of Lab-Grown Diamonds. Whether you seek classic luxury,
+                natural sparkle, or sustainable sophistication, our carefully curated
+                collection offers something for every style and occasion. Crafted to
+                perfection, each piece reflects purity, beauty, and value you can treasure forever.
+              </p>
+            </div>
           </div>
 
-          {/* Right Side */}
-          <div
-            className={`col-md-6 d-flex justify-content-around align-items-center ${styles.rightSection}`}
-            aria-label="Suvarnakala credibility badges"
-          >
-            {/* Left Panel */}
-            <div className={styles.goldLeftPanel}>
-              <div className={styles.contentWrapper}>
-                <Image
-                  src={logo}
-                  alt="Suvarnakala Jewelry Logo"
-                  className="img-fluid mb-3"
-                  width={200}
-                  height={80}
-                  loading="lazy"
-                />
-                <p className={styles.textRed}>Timeless Elegance, Pure Gold</p>
-                <p className={styles.textBlue}>
-                  Indulge in the luxury of our finest gold jewelry — perfect for every occasion.
-                </p>
-                <a href="#" className={styles.textRed}>
-                  → Explore Gold Collection
-                </a>
-              </div>
-            </div>
-            {/* Right Panel */}
-            <div className={styles.goldRightPanel}>
-              <Image
-                src={jewelryImage}
-                alt="Jewelry Showcase"
-                className="img-fluid"
-                width={400}
-                height={450}
-              />
-            </div>
+          {/* Right Column */}
+          <div className="col-md-6">
+            <Carousel
+              responsive={responsive}
+              infinite
+              showDots
+              arrows={false}
+              dotListClass="custom-dot-list"
+              itemClass="pb-3"
+            >
+              {slides.map((slide, index) => (
+                <div key={index} className="about_right_wrapper">
+                  <div className="about_patternshape position-relative">
+                    <Image src={demoBg} alt="Background Pattern" />
+                    <div className="about_sub_content position-absolute">
+                      <p>
+                        <span className="text-red">{slide.content}</span>
+                        <br />
+                        {slide.description}
+                        <br />
+                        <span className="text-red">{slide.explore}</span>
+                      </p>
+                    </div>
+                  </div>
+                  <div className="about_main_image">
+<Image
+  src={slide.image}
+  alt={slide.content}
+  width={500}
+  height={300}
+  style={{
+    width: '370px',
+    height: '370px',
+    borderRadius: '20px',
+    objectFit: 'cover' // Optional: keeps image nicely cropped
+  }}
+/>
+               </div>
+                </div>
+              ))}
+            </Carousel>
           </div>
         </div>
       </div>
-    </>
+
+      <style jsx global>{`
+        .about_section .react-multi-carousel-list {
+          position: relative;
+          width: 100%;
+          min-height: 400px; /* Ensure carousel has space */
+        }
+
+        .about_right_wrapper {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          min-height: 400px; /* Ensure content visibility */
+        }
+      `}</style>
+    </section>
   );
 };
 
-export default AboutUs;
+export default About;

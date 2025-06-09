@@ -56,13 +56,13 @@ export default function Celebrate({ bachatMahotsavImages }: CelebrateProps) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
       </Head>
-
-      <section className="hero-section">
-        <div className="p-5">
-          <div className="row">
-            <div className="col-md-6">
-              <div className="main-title">
-                <div style={{ display: 'inline-block' }}>
+      <div className=" pb-2">
+        <section className="hero-section">
+          <div className="p-5">
+            <div className="row">
+              <div className="col-md-6">
+                <div className="main-title">
+                  {/* <div style={{ display: 'inline-block' }}>
                   <h2 style={{ margin: 0 }}>
                     Celebrate Savings <span className="text-red">with Style!</span>
                   </h2>
@@ -71,49 +71,65 @@ export default function Celebrate({ bachatMahotsavImages }: CelebrateProps) {
                     alt="Decorative line under title"
                     style={{ display: 'block', marginTop: '2px', width: '100%', height: 'auto' }}
                   />
+                </div> */}
+                  <div
+                    className="custom-heading-wrapper d-flex align-items-center  mb-4"
+                    style={{ marginTop: '-6px' }}
+                  >
+                    <h2 className="m-0 custom-heading text-wrap me-3">
+                      <span className="">
+                        Celebrate Savings <span className="text-red">with Style! </span>
+                      </span>
+                      <div className="decorative-line">
+                        <div className="diamond"></div>
+                        <div className="line"></div>
+                        <div className="diamond"></div>
+                      </div>
+                    </h2>
+                  </div>
+                  <p className="text-justify">
+                    Join our exclusive <span className="dark_font">Bachat Mahotsav</span> and enjoy
+                    irresistible offers on gold, diamond, and silver jewelry. Special discounts,
+                    making charge waivers, and festive combos – all crafted to bring sparkle to your
+                    celebrations.
+                  </p>
+                  <p>
+                    The most awaited <span className="dark_font">Gold Bachat Mahotsav</span> is
+                    here! It's not just a festival — it’s your golden opportunity to save smart and
+                    shine brighter with stunning jewellery collections and exclusive savings plans.
+                  </p>
                 </div>
-                <p className="text-justify">
-                  Join our exclusive <span className="dark_font">Bachat Mahotsav</span> and enjoy
-                  irresistible offers on gold, diamond, and silver jewelry. Special discounts,
-                  making charge waivers, and festive combos – all crafted to bring sparkle to your
-                  celebrations.
-                </p>
-                <p>
-                  The most awaited <span className="dark_font">Gold Bachat Mahotsav</span> is here!
-                  It's not just a festival — it’s your golden opportunity to save smart and shine
-                  brighter with stunning jewellery collections and exclusive savings plans.
-                </p>
+
+                <div className="d-flex gap-3 align-items-center">
+                  <Image src={playstore} alt="Play Store" width={120} height={40} />
+                  <Image src={appstore} alt="App Store" width={120} height={40} />
+                </div>
               </div>
 
-              <div className="d-flex gap-3 align-items-center">
-                <Image src={playstore} alt="Play Store" width={120} height={40} />
-                <Image src={appstore} alt="App Store" width={120} height={40} />
-              </div>
-            </div>
-
-            <div className="col-md-6">
-              <div className="jewellary_image" aria-live="polite">
-                {bachatMahotsavImages.length > 0 && (
-                  <img
-                    src={bachatMahotsavImages[currentImageIndex]}
-                    alt={`Bachat Mahotsav jewelry offer ${currentImageIndex + 1}`}
-                    className=""
-                    style={{ maxHeight: '401px', width: '100%', objectFit: 'cover' }}
-                    loading="lazy"
-                  />
-                )}
-                <div className="mobile_img">
-                  <Image
-                    src={mobile}
-                    alt="Mobile app showcasing Bachat Mahotsav offers"
-                    className="img-fluid"
-                  />
+              <div className="col-md-6">
+                <div className="jewellary_image" aria-live="polite">
+                  {bachatMahotsavImages.length > 0 && (
+                    <img
+                      src={bachatMahotsavImages[currentImageIndex]}
+                      alt={`Bachat Mahotsav jewelry offer ${currentImageIndex + 1}`}
+                      className=""
+                      style={{ maxHeight: '401px', width: '100%', objectFit: 'cover' }}
+                      loading="lazy"
+                    />
+                  )}
+                  <div className="mobile_img">
+                    <Image
+                      src={mobile}
+                      alt="Mobile app showcasing Bachat Mahotsav offers"
+                      className="img-fluid"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
     </>
   );
 }

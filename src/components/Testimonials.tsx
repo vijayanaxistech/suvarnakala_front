@@ -26,12 +26,17 @@ const responsive = {
 
 const Testimonials: React.FC<Props> = ({ testimonials }) => {
   return (
-    <div className="p-5" aria-label="Suvarnakala Customer Testimonials Section">
+    <div className="p-5 pt-4 pb-0" aria-label="Suvarnakala Customer Testimonials Section">
       <div className="custom-heading-wrapper d-flex align-items-center mb-4">
         <h2 className="m-0 custom-heading text-wrap me-3">
-          <span className="heading-underline">
+          <span>
             Customer <span className="text-red">Stories :</span>
           </span>
+                    <div className="decorative-line">
+            <div className="diamond"></div>
+            <div className="line"></div>
+            <div className="diamond"></div>
+          </div>
         </h2>
         <span className="heading-extension">Stories Behind Every Sparkle</span>
       </div>
@@ -42,31 +47,43 @@ const Testimonials: React.FC<Props> = ({ testimonials }) => {
           infinite={true}
           autoPlay={true}
           autoPlaySpeed={4000}
-          showDots={true}
           arrows={false}
           containerClass="carousel-container"
           itemClass="px-1 pb-5"
           aria-live="polite"
         >
           {testimonials.map((testimonial, index) => (
-            <div
-              key={index}
-              className="rounded text-center py-4 px-3 d-flex flex-column justify-content-between"
-              style={{
-                backgroundColor: '#fff',
-                borderRadius: '15px',
-                color: '#fff',
-                border: '1px solid #012f63',
-                height: '220px',
-              }}
-              role="group"
-              aria-label={`Testimonial by ${testimonial.name}`}
-            >
-              <h5 className="fw-bold text-blue mb-3">{testimonial.name}</h5>
-              <p className=" text-blue" style={{ fontSize: '14px', flexGrow: 1 }}>
-                {testimonial.description}
-              </p>
-            </div>
+<div
+  key={index}
+  className="p-4 bg-white rounded-4 shadow-sm d-flex flex-column justify-content-between text-start position-relative testimonial-card"
+  style={{
+    height: '210px',
+    border: '1px solid #e3e6ea',
+  }}
+  role="group"
+  aria-label={`Testimonial by ${testimonial.name}`}
+>
+  <div className="d-flex align-items-center mb-3">
+    <div
+      className="rounded-circle d-flex align-items-center justify-content-center me-3"
+      style={{
+        width: '45px',
+        height: '45px',
+        backgroundColor: '#012f63',
+        color: '#fff',
+        fontWeight: 600,
+        fontSize: '18px',
+      }}
+    >
+      {testimonial.name.charAt(0)}
+    </div>
+    <h6 className="m-0 text-dark fw-semibold">{testimonial.name}</h6>
+  </div>
+  <p className="text-secondary mt-0 mb-0" style={{ fontSize: '14px', lineHeight: '1.5' }}>
+    “{testimonial.description}”
+  </p>
+</div>
+
           ))}
         </Carousel>
       ) : (

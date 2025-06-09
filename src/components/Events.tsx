@@ -70,14 +70,19 @@ export default function CategoryGrid() {
         />
       </Head>
 
-      <div className="p-5" aria-label="Suvarnakala Jewelry Collections">
+      <div className="p-5 pb-0 pt-4" aria-label="Suvarnakala Jewelry Collections">
         <div className="custom-heading-wrapper d-flex align-items-center mb-4">
           <h2 className="m-0 custom-heading text-wrap me-3">
-            <span className="heading-underline">
-              The Right Fit <span className="text-red">for Every Event :</span>
+            <span>
+              The Right Fit <span className="text-red">for Every Events :</span>
             </span>
+            <div className="decorative-line">
+              <div className="diamond"></div>
+              <div className="line"></div>
+              <div className="diamond"></div>
+            </div>
           </h2>
-          <span className="heading-extension">From Casual to Glam, We've Got You Covered</span>
+          <span className="heading-extension">From Casual to Glam, Effortlessly</span>
         </div>
 
         <div className="row g-3">

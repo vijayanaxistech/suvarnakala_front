@@ -8,6 +8,13 @@ module.exports = {
         port: '5000',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'skalaapi.anaxistech.com',
+        pathname: '/**',
+      },
     ],
   },
 };
+ 
+ 

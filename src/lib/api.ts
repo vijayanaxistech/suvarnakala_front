@@ -1,11 +1,11 @@
 import axios from 'axios';
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:5000';
+export const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL ;
 
 const API = axios.create({
   baseURL: BASE_URL,
   headers: {
-    'Content-Type': 'multipart/form-data',
+    'Content-Type': 'application/json',
   },
 });
 
@@ -43,8 +43,63 @@ export const getTrendingDesigns = async () => {
 };
 
 export const getProducts = async () => {
-  const res = await API.get('/api/products');
-  return Array.isArray(res.data) ? res.data : [];
+  try {
+    const res = await API.get('/api/products');
+    return Array.isArray(res.data) ? res.data : [];
+  } catch (err) {
+    console.error('Error fetching products:', err);
+    return [];
+  }
+};
+
+export const getProductById = async (id: string) => {
+  try {
+    const res = await API.get(`/api/products/${id}`);
+    return res.data;
+  } catch (err) {
+    console.error('Error fetching product by ID:', err);
+    return null;
+  }
+};
+
+export const getEvents = async () => {
+  try {
+    const res = await API.get('/api/events');
+    return Array.isArray(res.data) ? res.data : [];
+  } catch (err) {
+    console.error('Error fetching events:', err);
+    return [];
+  }
+};
+
+export const submitContactForm = async (formData: {
+  name: string;
+  email: string;
+  phone: string;
+  message: string;
+}) => {
+  const res = await API.post('/api/contact', formData);
+  return res.data;
+};
+
+export const sendAppointment = async (formData: {
+  name: string;
+  email: string;
+  mobile: string;
+  city: string;
+  store: string;
+  date: string;
+  time: string;
+  jewelry: string;
+  message: string;
+}) => {
+  try {
+    const res = await API.post('/api/sendappointment', formData);
+    return res.data;
+  } catch (err) {
+    console.error('Error sending appointment request:', err);
+    throw err;
+  }
 };
 
 export default API;

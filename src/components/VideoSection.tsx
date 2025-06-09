@@ -27,7 +27,7 @@ const VideoSection: React.FC = () => {
         playsInline
         preload="metadata"
       >
-        <source src="/1713940466054.mp4" type="video/mp4" />
+        <source src="/1724486881975.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
     </div>
