@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <style>
+      .decorative-line {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 20px 0;
+      }
+
+      .diamond {
+        width: 10px;
+        height: 10px;
+        background-color: #957933; /* Gold color */
+        transform: rotate(45deg);
+        margin: 0; /* Removed gap */
+      }
+
+      .line {
+        flex: 1;
+        height: 2px;
+        background-color: #957933; /* Gold color */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="decorative-line">
+      <div class="diamond"></div>
+      <div class="line"></div>
+      <div class="diamond"></div>
+    </div>
+  </body>
+</html>

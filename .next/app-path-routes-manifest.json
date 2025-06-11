@@ -1,0 +1,15 @@
+{
+  "/_not-found/page": "/_not-found",
+  "/api/send-whatsapp/route": "/api/send-whatsapp",
+  "/favicon.ico/route": "/favicon.ico",
+  "/page": "/",
+  "/contact/page": "/contact",
+  "/disclaimer/page": "/disclaimer",
+  "/about/page": "/about",
+  "/our-showrooms/page": "/our-showrooms",
+  "/events/page": "/events",
+  "/why-us/page": "/why-us",
+  "/collections/[[...filters]]/page": "/collections/[[...filters]]",
+  "/privacy-policy/page": "/privacy-policy",
+  "/product_detail/[id]/page": "/product_detail/[id]"
+}
