@@ -8,6 +8,7 @@ interface Hero {
   description: string;
   image: string;
   priority: number;
+  link: string; // Added link property
 }
 
 interface HeroCarouselProps {
@@ -72,9 +73,11 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({ heroes, baseUrl }) => {
           }}
           aria-live="polite"
         >
-          {sortedHeroes.map(({ title, description, image }, idx) => {
+          {sortedHeroes.map(({ title, description, image, link }, idx) => {
             const imageUrl = image.startsWith('http') ? image : `${baseUrl}${image}`;
+            const validLink = link && link.startsWith('http') ? link : '#'; // Fallback for invalid links
             console.log(`Slide ${idx + 1} image URL:`, imageUrl);
+            console.log(`Slide ${idx + 1} link:`, validLink);
             return (
               <div
                 key={idx}
@@ -117,8 +120,13 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({ heroes, baseUrl }) => {
                 >
                   <h1 className="display-6 fw-semibold mb-4">{title}</h1>
                   <p className="lead mb-5">{description}</p>
-                  <a href="/collections" className="btn custom-btn btn-lg w-auto px-4">
-                    Check Collection
+                  <a
+                    href={validLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn custom-btn btn-lg w-auto px-4"
+                  >
+                    View More
                   </a>
                 </div>
                 <div
@@ -138,8 +146,13 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({ heroes, baseUrl }) => {
                 >
                   <h3 className="fw-semibold mb-3">{title}</h3>
                   <p className="mb-4">{description}</p>
-                  <a href="/collections" className="btn custom-btn">
-                    Check Collection
+                  <a
+                    href={validLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn custom-btn"
+                  >
+                    View More
                   </a>
                 </div>
               </div>

@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 import aboutImage from '../../../public/assets/About.jpg';
 import qualityBadge from '../../../public/assets/Quality.png';
@@ -142,13 +143,13 @@ const About = () => {
                   <p className="text-danger fw-semibold small">Amazing Value Everyday</p>
                 </div>
               </div>
-              <a
+              <Link
                 href="/collections"
                 className="custom-btn btn-lg text-white w-auto px-4"
                 style={{ textDecoration: 'none', color: 'inherit' }}
               >
                 View Collection
-              </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -254,7 +255,7 @@ const About = () => {
       </div>
 
       {/* Trust Section */}
-      <div style={{ backgroundColor: '#BCBABA', padding: '30px 0' }}>
+      <div style={{ backgroundColor: 'rgb(246, 245, 245)', padding: '30px 0' }}>
         <div
           style={{
             display: 'flex',

@@ -18,7 +18,7 @@ interface Props {
 }
 
 const responsive = {
-  superLargeDesktop: { breakpoint: { max: 4000, min: 1441 }, items: 5 },
+  superLargeDesktop: { breakpoint: { max: 4000, min: 1441 }, items: 3 },
   desktop: { breakpoint: { max: 1440, min: 1024 }, items: 3 },
   tablet: { breakpoint: { max: 1023, min: 768 }, items: 2 },
   mobile: { breakpoint: { max: 767, min: 0 }, items: 1 },

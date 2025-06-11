@@ -56,10 +56,12 @@ export default function Popup() {
             {/* Content */}
             <div className="d-flex flex-column justify-content-between flex-grow-1">
               <div>
-                <h2 className="mb-2 mt-3 mt-md-4">Login to Offers</h2>
+                <h2 className="mb-2 mt-3 mt-md-4">Login to avail Offers</h2>
                 <h6 className="mt-3">🎁 Exclusive Deals Await!</h6>
-                <p className="mt-3 mb-2">FREE shipping on $50+</p>
-                <p>Member-only perks</p>
+<p className="mt-3 mb-2">Get ₹1,000 off after signup</p>
+                <p>Get started by registering on the app
+
+</p>
                 <div className="mt-3 mt-md-4">
                   <div className="d-flex flex-column flex-sm-row justify-content-center justify-content-sm-start gap-2 gap-sm-3">
                     <a

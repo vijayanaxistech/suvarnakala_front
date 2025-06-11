@@ -741,16 +741,7 @@ textarea::placeholder {
   z-index: -1;
 }
 
-.about_title::after {
-  content: '';
-  position: absolute;
-  background: #d41b1f;
-  width: 2px;
-  height: 370px;
-  right: 40px;
-  top: -50px;
-  z-index: -1;
-}
+
 
 .about_title h5 {
   color: #033a79;
@@ -810,7 +801,6 @@ textarea::placeholder {
   }
 }
 
-
 .more-info-btn-sm {
   background: #033a79;
   color: white;
@@ -824,6 +814,3 @@ textarea::placeholder {
   align-items: center;
   line-height: 1;
 }
-
-
-

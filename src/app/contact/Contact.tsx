@@ -2,7 +2,7 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import React, { useState, useEffect, useRef } from 'react';
-import contactUs from '../../../public/assets/contactUs.jpg';
+import contactUs from '../../../public/assets/contact-banner.png';
 import Image from 'next/image';
 import call from '../../../public/assets/icons/call 1.svg';
 import mail from '../../../public/assets/icons/email 1.svg';
@@ -185,14 +185,14 @@ const Contact: NextPage = () => {
               padding: '0 1rem',
             }}
           >
-            <h1
+            {/* <h1
               className="fw-bold"
               style={{
                 fontSize: 'clamp(2rem, 5vw, 3.5rem)',
               }}
             >
               Contact Us
-            </h1>
+            </h1> */}
           </div>
         </div>
 

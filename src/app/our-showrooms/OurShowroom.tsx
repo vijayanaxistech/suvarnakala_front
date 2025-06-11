@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Button, Modal } from 'react-bootstrap';
 import breadcrumbImage from '../../../public/assets/our-showroom-bg.png';
 import shopnowbg from '../../../public/assets/dark-brown-colour-flower-pattern-background-abstract-banner-multipurpose-design 1.png';
@@ -9,6 +9,7 @@ import shopWomen from '../../../public/assets/shopWomwn.png';
 import hrline from '../../../public/assets/Line 467.png';
 import styles from '../page.module.css';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 // Satellite
 import st1 from '../../../public/assets/showrooms/Satellite/1.png';
@@ -46,17 +47,29 @@ const Cgroad = [cg1, cg2, cg3, cg4, cg5, cg6, cg7, cg8, cg9];
 const Maninagar = [mn1, mn2, mn3, mn4, mn5, mn6];
 
 const WhySuvarnakala = () => {
-  const [previewImage, setPreviewImage] = useState<any>(null);
   const [showModal, setShowModal] = useState(false);
+  const [previewImage, setPreviewImage] = useState<string | null>(null);
+  const router = useRouter();
 
-  const handleImageClick = (img: any) => {
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (hash) {
+      const sectionId = hash.replace('#', '');
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+  }, []);
+
+  const handleImageClick = (img: string) => {
     setPreviewImage(img);
     setShowModal(true);
   };
 
   const handleCloseModal = () => setShowModal(false);
 
-  const renderImageGrid = (images: any[]) =>
+  const renderImageGrid = (images: string[]) =>
     images.map((img, idx) => (
       <Col xs={12} sm={6} md={4} key={idx}>
         <div
@@ -74,7 +87,7 @@ const WhySuvarnakala = () => {
             layout="responsive"
             width={350}
             height={250}
-            objectFit="cover"
+            style={{ objectFit: 'cover' }}
             placeholder="blur"
           />
         </div>
@@ -83,21 +96,18 @@ const WhySuvarnakala = () => {
 
   return (
     <>
-      {/* Banner Image */}
       <div style={{ position: 'relative', width: '100%', height: '500px' }}>
         <Image
           src={breadcrumbImage}
           alt="Suvarnakala Banner"
           layout="fill"
-          objectFit="cover"
+          style={{ objectFit: 'cover' }}
           priority
         />
       </div>
 
-      {/* Showrooms Section */}
       <div className="bg-color p-5">
-        {/* Satellite */}
-        <Row className=" g-4">
+        <Row className="g-4" id="satellite">
           <div className="custom-heading-wrapper text-center justify-content-center d-flex align-items-center mb-1">
             <h2 className="m-0 custom-heading text-wrap me-3">
               <p className="text-red mb-1 fs-3">Jodhpur Cross Roads, Satellite</p>
@@ -109,18 +119,16 @@ const WhySuvarnakala = () => {
               />
             </h2>
           </div>
-
           <p className="text-blue mt-0 text-center">
             Venus Amadeus Jodhpur Cross Road, B.R.T.S Bus Stand, Satellite
           </p>
           {renderImageGrid(St1)}
         </Row>
 
-        {/* CG Road */}
-        <Row className="mt-4 g-4">
+        <Row className="mt-4 g-4" id="cgroad">
           <div className="custom-heading-wrapper text-center justify-content-center d-flex align-items-center mb-1">
             <h2 className="m-0 custom-heading text-wrap me-3">
-              <p className="text-red mb-1 fs-3">C G Road</p>
+              <p className="text-red mb-1 fs-3">C.G. Road</p>
               <Image
                 src={hrline}
                 alt="Horizontal Line"
@@ -129,14 +137,11 @@ const WhySuvarnakala = () => {
               />
             </h2>
           </div>
-          <p className="text-blue mt-0 text-center">
-            National Plaza, Opp. Lal Bungalow, C. G. Road
-          </p>
+          <p className="text-blue mt-0 text-center">National Plaza, Opp. Lal Bungalow, C.G. Road</p>
           {renderImageGrid(Cgroad)}
         </Row>
 
-        {/* Maninagar */}
-        <Row className="mt-4 g-4">
+        <Row className="mt-4 g-4" id="maninagar">
           <div className="custom-heading-wrapper text-center justify-content-center d-flex align-items-center mb-1">
             <h2 className="m-0 custom-heading text-wrap me-3">
               <p className="text-red mb-1 fs-3">Maninagar</p>
@@ -155,9 +160,14 @@ const WhySuvarnakala = () => {
         </Row>
       </div>
 
-      {/* Shop Now Section */}
       <div style={{ position: 'relative', width: '100%', height: '300px' }}>
-        <Image src={shopnowbg} alt="Shop Now Banner" layout="fill" objectFit="cover" priority />
+        <Image
+          src={shopnowbg}
+          alt="Shop Now Banner"
+          layout="fill"
+          style={{ objectFit: 'cover' }}
+          priority
+        />
         <div
           style={{
             position: 'absolute',
@@ -169,7 +179,6 @@ const WhySuvarnakala = () => {
             alignItems: 'center',
             justifyContent: 'center',
             color: 'white',
-            // padding: '0 20px',
           }}
         >
           <Container>
@@ -196,7 +205,6 @@ const WhySuvarnakala = () => {
         </div>
       </div>
 
-      {/* Preview Modal */}
       <Modal show={showModal} onHide={handleCloseModal} centered size="lg">
         <Modal.Body className="p-0 d-flex align-items-center justify-content-center">
           {previewImage && (

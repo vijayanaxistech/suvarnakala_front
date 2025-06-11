@@ -8,13 +8,14 @@ import shopnowbg from '../../../public/assets/dark-brown-colour-flower-pattern-b
 import shopWomen from '../../../public/assets/shopWomwn.png';
 import styles from '../page.module.css';
 import { Button, Container, Row, Col } from 'react-bootstrap';
-import { getEvents } from '../../lib/api'; // Adjust path as needed
+import { getEvents } from '../../lib/api';
 import Link from 'next/link';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Events | Suvarnakala Pvt. Ltd',
 };
+
 interface Event {
   _id: string;
   title: string;
@@ -35,8 +36,49 @@ const formatDateRange = (start: string, end: string) => {
   return `${startDay}th TO ${endDay}th ${month} ${year}`;
 };
 
+// Add custom CSS for animations and styling
+const customStyles = `
+  @keyframes fadeInUp {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .coming-soon-container {
+    border-radius: 15px;
+    padding: 3rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .coming-soon-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #b22222;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .coming-soon-text {
+    font-size: 1.2rem;
+    color: #555;
+    margin-bottom: 2rem;
+  }
+
+
+
+
+
+
+`;
+
 const EventsPage = async () => {
-  // Fetch events server-side
   const events: Event[] = await getEvents();
 
   const today = new Date('2025-06-04');
@@ -50,6 +92,9 @@ const EventsPage = async () => {
 
   return (
     <>
+      {/* Inject custom styles */}
+      <style>{customStyles}</style>
+
       <div style={{ position: 'relative', width: '100%', height: '434px' }}>
         <Image
           src={breadcrumbImage}
@@ -62,24 +107,26 @@ const EventsPage = async () => {
 
       <div className="pt-0" style={{ backgroundColor: '#f5e7d6' }}>
         <Image src={phool} alt="phool" width={60} height={88} />
-        <div className=" p-5 pt-0 pb-1">
+        <div className="p-5 pt-0 pb-1">
           {/* Upcoming Events */}
           <div className="mb-5 text-start">
-            <div className="mb-4">
-              <h3 className="text-danger fw-bold fs-2 mb-2 ps-5">Upcoming Events</h3>
-              <div style={{ width: '30%' }}>
-                <Image
-                  src={hrline}
-                  alt="Horizontal Line"
-                  layout="responsive"
-                  width={100}
-                  height={3}
-                />
-              </div>
+            <div className="custom-heading-wrapper d-flex align-items-center mb-4">
+              <h2 className="m-0 custom-heading text-wrap me-3">
+                <span className="text-red">Upcoming Events </span>
+
+                <div className="decorative-line">
+                  <div className="diamond"></div>
+                  <div className="line"></div>
+                  <div className="diamond"></div>
+                </div>
+              </h2>
             </div>
 
             {upcomingEvents.length === 0 ? (
-              <p className="text-muted">No upcoming events available.</p>
+              <div className="coming-soon-container">
+                <div className="decorative-line"></div>
+                <h2 className="coming-soon-title">Events Coming Soon!</h2>
+              </div>
             ) : (
               <div className="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-3 justify-content-start">
                 {upcomingEvents.map((event) => (
@@ -113,55 +160,8 @@ const EventsPage = async () => {
             )}
           </div>
 
-          {/* Past Events */}
-          {/* <div className="mb-5 text-start">
-            <div className="mb-4">
-              <h3 className="text-danger fw-bold fs-2 mb-2 ps-5">Past Events</h3>
-              <div style={{ width: '30%' }}>
-                <Image
-                  src={hrline}
-                  alt="Horizontal Line"
-                  layout="responsive"
-                  width={100}
-                  height={3}
-                />
-              </div>
-            </div>
-
-            {pastEvents.length === 0 ? (
-              <p className="text-muted">No past events available.</p>
-            ) : (
-              <div className="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-3 justify-content-start">
-                {pastEvents.map((event) => (
-                  <div key={event._id} className="col">
-                    <div
-                      className="card h-100 border-light shadow-sm text-center p-3"
-                      style={{ backgroundColor: '#fff', borderRadius: '10px' }}
-                    >
-                      <div className="mb-3">
-                        <p className="mb-0 fs-6 fw-medium text-dark">
-                          {formatDateRange(event.startDate, event.endDate)}
-                        </p>
-                        <div className="mt-2'">
-                          <Image
-                            src={hrline}
-                            alt="Horizontal Line"
-                            layout="responsive"
-                            width={100}
-                            height={3}
-                          />
-                        </div>
-                      </div>
-                      <h5 className="card-title fw-bold text-uppercase text-dark fs-6 mb-2">
-                        {event.title}
-                      </h5>
-                      <p className="card-text text-secondary fs-6">{event.address}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div> */}
+          {/* Past Events (Commented out as per original code) */}
+          {/* ... Past Events code ... */}
         </div>
       </div>
 

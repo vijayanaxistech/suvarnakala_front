@@ -18,6 +18,15 @@ export const getTestimonials = async () => {
   const res = await API.get('/api/testimonials');
   return res.data.testimonials || [];
 };
+// api.ts
+export const fetchGoldRates = async () => {
+  const res = await fetch('https://skalaapi.anaxistech.com/api/rate');
+  if (!res.ok) {
+    throw new Error('Failed to fetch gold rates');
+  }
+  return res.json();
+};
+
 
 export const getCategories = async () => {
   const res = await API.get('/api/productscategories');

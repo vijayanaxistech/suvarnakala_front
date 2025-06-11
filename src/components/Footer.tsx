@@ -140,7 +140,6 @@ export default function Footer() {
                 </ul>
               </div>
 
-
               {/* Get In Touch */}
               <div className="footer-contact-section">
                 <h6 className="fw-bold mb-3 text-uppercase footer-title">Get In Touch</h6>
@@ -153,12 +152,14 @@ export default function Footer() {
                   </li>
                   <li className="d-flex align-items-center">
                     <FaEnvelope className="text-red me-2 icon-small" aria-hidden="true" />
-                    <a href="mailto:sales@suvarnakala.com" className="text-dark text-decoration-none">
+                    <a
+                      href="mailto:sales@suvarnakala.com"
+                      className="text-dark text-decoration-none"
+                    >
                       sales@suvarnakala.com
                     </a>
                   </li>
                 </ul>
-
               </div>
 
               {/* Social Media */}
@@ -208,7 +209,7 @@ export default function Footer() {
             {/* Copyright */}
             <div className="d-flex flex-column flex-md-row justify-content-center align-items-center text-center px-3 footer-bottom">
               <p className="text-blue mb-1 mb-md-0">
-                © {currentYear} suvarnakala. All Rights Reserved.
+                © {currentYear} Suvarnakala. All Rights Reserved.
               </p>
             </div>
           </div>

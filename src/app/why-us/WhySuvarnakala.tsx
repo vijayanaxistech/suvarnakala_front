@@ -8,6 +8,7 @@ import shopnowbg from '../../../public/assets/dark-brown-colour-flower-pattern-b
 import shopWomen from '../../../public/assets/shopWomwn.png';
 import styles from '../page.module.css';
 import Link from 'next/link';
+import { IoIosCheckmarkCircleOutline } from "react-icons/io";
 
 const features = [
   {
@@ -87,7 +88,7 @@ const WhySuvarnakala = () => {
               <Col xs={12}>
                 <div className="d-flex align-items-start">
                   <div className="me-3 text-red" style={{ fontSize: '1.10rem' }}>
-                    ✨{' '}
+                    <IoIosCheckmarkCircleOutline />{' '}
                   </div>
                   <div>
                     <h5 className="fw-bold mb-1">{feature.title}</h5>

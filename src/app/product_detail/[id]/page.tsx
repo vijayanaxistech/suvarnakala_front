@@ -5,14 +5,14 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import { IoLogoWhatsapp } from 'react-icons/io';
-import breadcrumbImage from '../../../../public/assets/collections.png';
+import defaultBreadcrumbImage from '../../../../public/assets/collections.png'; // Renamed for clarity
 import shopnowbg from '../../../../public/assets/dark-brown-colour-flower-pattern-background-abstract-banner-multipurpose-design 1.png';
 import shopWomen from '../../../../public/assets/shopWomwn.png';
 import styles from '../../page.module.css';
 import { getProductById, getProducts, BASE_URL } from '../../../lib/api';
 import WhatsAppButton from '../../collections/WhatsAppButton';
-import MoreInfoButton from '../../collections/MoreInfo'
-import ProductImageGallery from '../ProductImageGallery'; // Import the new components --
+import MoreInfoButton from '../../collections/MoreInfo';
+import ProductImageGallery from '../ProductImageGallery';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -23,6 +23,7 @@ interface Category {
   _id: string;
   name: string;
   image: string;
+  banner?: string; // Add banner field
   createdAt: string;
   updatedAt: string;
   __v: number;
@@ -100,13 +101,19 @@ const ProductDetailPage = async ({ params }: { params: { id: string } }) => {
     ...product.subImages.filter((img) => img !== product.mainImage),
   ];
 
+  // Determine breadcrumb image based on category banner
+  let breadcrumbImageSrc = defaultBreadcrumbImage;
+  if (product.category.banner) {
+    breadcrumbImageSrc = `${BASE_URL}/${product.category.banner}`;
+  }
+
   return (
     <>
       {/* Banner */}
-      <div style={{ position: 'relative', width: '100%', height: '500px' }}>
+      <div style={{ position: 'relative', width: '100%', height: '400px' }}>
         <Image
-          src={breadcrumbImage}
-          alt="Suvarnakala Banner"
+          src={breadcrumbImageSrc}
+          alt={`${product.category.name} Banner`}
           layout="fill"
           objectFit="cover"
           priority
@@ -211,21 +218,24 @@ const ProductDetailPage = async ({ params }: { params: { id: string } }) => {
                         <div className="p-1">
                           <div className="d-flex justify-content-between align-items-center">
                             <h6 className="card-title text-dark text-truncate mb-0">
-                               {product.title.length > 20 ? product.title.substring(0, 20) + '...' :item.title}
+                              {item.title.length > 20
+                                ? item.title.substring(0, 20) + '...'
+                                : item.title}
                             </h6>
-
-                          <MoreInfoButton
-                            product={{
-                              title: product.title,
-                              metal: product.metal,
-                              purity: product.purity,
-                              grossWeight: product.grossWeight,
-                              mainImage: product.mainImage
-                                ? `${BASE_URL}/${product.mainImage}`
-                                : 'https://via.placeholder.com/300x300?text=No+Image',
-                            }}
-                          />
-                            <WhatsAppButton product={item} />
+                            <div className="d-flex align-items-center gap-2">
+                              <MoreInfoButton
+                                product={{
+                                  title: item.title,
+                                  metal: item.metal,
+                                  purity: item.purity,
+                                  grossWeight: item.grossWeight,
+                                  mainImage: item.mainImage
+                                    ? `${BASE_URL}/${item.mainImage}`
+                                    : 'https://via.placeholder.com/300x300?text=No+Image',
+                                }}
+                              />
+                              <WhatsAppButton product={item} />
+                            </div>
                           </div>
                           <p className="card-text text-dark mb-1">
                             Metal Purity: {item.metal} {item.purity}
@@ -242,7 +252,7 @@ const ProductDetailPage = async ({ params }: { params: { id: string } }) => {
         </div>
       </div>
 
-      {/* Shop Now section */}
+      {/* Shop Now Section */}
       <div style={{ position: 'relative', width: '100%', height: '300px' }}>
         <Image src={shopnowbg} alt="Shop Now Banner" layout="fill" objectFit="cover" priority />
         <div
@@ -256,7 +266,6 @@ const ProductDetailPage = async ({ params }: { params: { id: string } }) => {
             alignItems: 'center',
             justifyContent: 'center',
             color: 'white',
-            padding: '0 20px',
           }}
         >
           <Container>
@@ -274,9 +283,15 @@ const ProductDetailPage = async ({ params }: { params: { id: string } }) => {
                 <h1 className="fs-4 fs-md-3 fw-semibold lh-tight mb-4">
                   Elevate Every Moment with Timeless Jewellery
                 </h1>
-                <Button variant="outline-light rounded-0" className={styles.shopNowBtn}>
-                  Shop Now
-                </Button>
+                <Link href="/collections">
+                  <Button
+                    variant="outline-light rounded-0"
+                    className={styles.shopNowBtn}
+                    style={{ textDecoration: 'none' }}
+                  >
+                    Shop Now
+                  </Button>
+                </Link>
               </Col>
             </Row>
           </Container>

@@ -189,7 +189,9 @@ export default async function ProductsPage({ params }: { params: { filters?: str
                     <div className="p-1">
                       <div className="d-flex justify-content-between align-items-center">
                         <h6 className="card-title text-dark text-truncate mb-0">
-                          {product.title.length > 20 ? product.title.substring(0, 20) + '...' : product.title}
+                          {product.title.length > 20
+                            ? product.title.substring(0, 20) + '...'
+                            : product.title}
                         </h6>
 
                         <div className="d-flex align-items-center gap-2">

@@ -3,12 +3,15 @@
 import Image from 'next/image';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
-import { BASE_URL } from '../lib/api'; // ✅ Update path as needed
+import { BASE_URL } from '../lib/api'; // Update path as needed
 
 interface Moment {
   _id: string;
-  imagePath: string;
+  filePath?: string;
+  imagePath?: string;
+  mediaType?: 'image' | 'video';
   createdAt: string;
+  title?: string;
 }
 
 interface MomentsProps {
@@ -71,42 +74,136 @@ const Moments: React.FC<MomentsProps> = ({ moments = [] }) => {
             itemClass="px-2 pb-5"
             aria-live="polite"
           >
-            {moments.map((moment, index) => (
-              <div
-                className="card border-0 shadow-sm"
-                key={moment._id}
-                role="group"
-                aria-label={`Moment ${index + 1}: Suvarnakala Jewelry Moment`}
-              >
+            {moments.map((moment, index) => {
+              const mediaSource = moment.filePath || moment.imagePath;
+              const isVideo = moment.mediaType === 'video';
+              const title = moment.title || `Moment ${index + 1}`;
+
+              return (
                 <div
-                  style={{
-                    position: 'relative',
-                    width: '100%',
-                    paddingTop: '60%',
-                    overflow: 'hidden',
-                  }}
+                  className="card border-0 shadow-sm moment-card"
+                  key={moment._id}
+                  role="group"
+                  aria-label={`Moment ${index + 1}: ${title}`}
                 >
-                  <Image
-                    src={
-                      moment.imagePath
-                        ? `${BASE_URL}/${moment.imagePath}`
-                        : 'https://via.placeholder.com/300x180?text=No+Image'
-                    }
-                    alt={`Suvarnakala Defining Moment ${index + 1} - Jewelry Design`}
-                    fill
-                    sizes="(max-width: 576px) 100vw, 300px"
-                    style={{ objectFit: 'cover' }}
-                    loading="lazy"
-                    onError={(e) => {
-                      e.currentTarget.src = 'https://via.placeholder.com/300x180?text=No+Image';
+                  <div
+                    style={{
+                      position: 'relative',
+                      width: '100%',
+                      paddingTop: '60%',
+                      overflow: 'hidden',
+                      borderRadius: '8px', // Subtle rounding for elegance
                     }}
-                  />
+                  >
+                    {isVideo ? (
+                      <video
+                        src={
+                          mediaSource
+                            ? `${BASE_URL}/${mediaSource}`
+                            : 'https://via.placeholder.com/300x180?text=No+Video'
+                        }
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        style={{
+                          position: 'absolute',
+                          top: 0,
+                          left: 0,
+                          width: '100%',
+                          height: '100%',
+                          objectFit: 'cover',
+                        }}
+                        aria-label={`Suvarnakala Defining Moment ${index + 1} - ${title}`}
+                        onError={(e) => {
+                          e.currentTarget.src = 'https://via.placeholder.com/300x180?text=No+Video';
+                        }}
+                      />
+                    ) : (
+                      <Image
+                        src={
+                          mediaSource
+                            ? `${BASE_URL}/${mediaSource}`
+                            : 'https://via.placeholder.com/300x180?text=No+Image'
+                        }
+                        alt={`Suvarnakala Defining Moment ${index + 1} - ${title}`}
+                        fill
+                        sizes="(max-width: 576px) 100vw, 300px"
+                        style={{ objectFit: 'cover' }}
+                        loading="lazy"
+                        onError={(e) => {
+                          e.currentTarget.src = 'https://via.placeholder.com/300x180?text=No+Image';
+                        }}
+                      />
+                    )}
+                    <div
+                      className="moment-overlay"
+                      style={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        width: '100%',
+                        height: '100%',
+                        background:
+                          'linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(212, 175, 55, 0.2))', // Gold-tinted gradient
+                        opacity: 0,
+                        display: 'flex',
+                        alignItems: 'flex-end', // Align title to bottom
+                        justifyContent: 'center',
+                        transition: 'opacity 0.4s ease',
+                        pointerEvents: 'none',
+                        zIndex: 10,
+                      }}
+                    >
+                      <span
+                        className="moment-title"
+                        style={{
+                          color: '#f5e050', // Soft gold color
+                          fontSize: '1rem',
+                          fontWeight: '500',
+                          fontFamily: "'Playfair Display', serif", // Elegant serif font
+                          textAlign: 'center',
+                          padding: '0.5rem 1rem 1rem',
+                          textTransform: 'capitalize', // Softer than uppercase
+                          letterSpacing: '1px',
+                          transform: 'translateY(20px)', // Start below for slide-up
+                          transition: 'transform 0.4s ease, opacity 0.4s ease',
+                          opacity: 0,
+                          borderBottom: '1px solid rgba(245, 224, 80, 0.5)', // Subtle underline
+                        }}
+                      >
+                        {title}
+                      </span>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </Carousel>
         )}
       </div>
+
+      <style jsx global>{`
+        .moment-card {
+          position: relative;
+          transition:
+            transform 0.4s ease,
+            box-shadow 0.4s ease;
+          border-radius: 8px;
+        }
+        // .moment-card:hover {
+        //   transform: scale(1.03); // Gentle zoom
+        //   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2); // Enhanced shadow
+        // }
+        .moment-card:hover .moment-overlay {
+          opacity: 1 !important;
+        }
+        .moment-card:hover .moment-title {
+          transform: translateY(0); // Slide up to position
+          opacity: 1 !important;
+        }
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&display=swap');
+      `}</style>
     </div>
   );
 };
