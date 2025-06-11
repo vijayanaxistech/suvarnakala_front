@@ -1,18 +1,20 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { Navbar, Nav, Container, Modal, Button } from 'react-bootstrap';
 import { FaWhatsapp, FaTwitter, FaFacebook, FaInstagram, FaBars, FaTimes } from 'react-icons/fa';
+import { TbRefresh } from 'react-icons/tb';
 import Marquee from 'react-fast-marquee';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { sendAppointment } from '../lib/api';
+import { Box, TextField } from '@mui/material';
 
-import logo from '../assets/Suvarnakala.png';
-import BookImage from '../assets/Book_A.png';
+import logo from '../../public/assets/Suvarnakala.png';
+import BookImage from '../../public/assets/Book_A.png';
 
 const Header: React.FC = () => {
   const pathname = usePathname();
@@ -25,18 +27,89 @@ const Header: React.FC = () => {
     city: '',
     store: '',
     date: '',
-    time: '',
     jewelry: '',
     message: '',
+    captchaAnswer: '',
   });
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const [captchaText, setCaptchaText] = useState('');
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  const generateCaptcha = () => {
+    const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+    let text = '';
+    for (let i = 0; i < 6; i++) {
+      text += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    setCaptchaText(text);
+
+    const canvas = canvasRef.current;
+    if (canvas) {
+      const ctx = canvas.getContext('2d');
+      if (ctx) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = '#f0f0f0';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // Add noise
+        for (let i = 0; i < 50; i++) {
+          ctx.fillStyle = `rgba(0, 0, 0, ${Math.random() * 0.2})`;
+          ctx.fillRect(Math.random() * canvas.width, Math.random() * canvas.height, 2, 2);
+        }
+
+        ctx.font = '20px Arial';
+        ctx.fillStyle = '#000';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+
+        const charWidth = canvas.width / (text.length + 1);
+        for (let i = 0; i < text.length; i++) {
+          ctx.save();
+          const x = charWidth * (i + 1);
+          const y = canvas.height / 2;
+          ctx.translate(x, y);
+          ctx.rotate((Math.random() - 0.5) * 0.3);
+          ctx.fillText(text[i], 0, 0);
+          ctx.restore();
+        }
+      } else {
+        console.error('Failed to get 2D context for canvas');
+      }
+    } else {
+      console.error('Canvas element not found');
+    }
+  };
+
+  // Generate CAPTCHA when modal is shown
+  useEffect(() => {
+    if (showModal) {
+      const timer = setTimeout(() => {
+        generateCaptcha();
+      }, 100); // Delay to ensure canvas is rendered
+      return () => clearTimeout(timer);
+    }
+  }, [showModal]);
 
   const handleToggle = () => setExpanded((prev) => !prev);
-  const closeMenu = () => setExpanded(false);
-  const handleShowModal = () => setShowModal(true);
+
+  const handleShowModal = () => {
+    setShowModal(true);
+  };
+
   const handleCloseModal = () => {
     setShowModal(false);
     setErrors({});
+    setFormData({
+      name: '',
+      email: '',
+      mobile: '',
+      city: '',
+      store: '',
+      date: '',
+      jewelry: '',
+      message: '',
+      captchaAnswer: '',
+    });
   };
 
   const handleChange = (
@@ -66,8 +139,12 @@ const Header: React.FC = () => {
     if (!formData.city.trim()) newErrors.city = 'City is required';
     if (!formData.store.trim()) newErrors.store = 'Store is required';
     if (!formData.date) newErrors.date = 'Appointment date is required';
-    if (!formData.time) newErrors.time = 'Appointment time is required';
     if (!formData.jewelry.trim()) newErrors.jewelry = 'Interested jewelry is required';
+    if (!formData.captchaAnswer.trim()) {
+      newErrors.captchaAnswer = 'CAPTCHA is required';
+    } else if (formData.captchaAnswer.trim().toLowerCase() !== captchaText.toLowerCase()) {
+      newErrors.captchaAnswer = 'Incorrect CAPTCHA';
+    }
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -89,9 +166,9 @@ const Header: React.FC = () => {
         city: '',
         store: '',
         date: '',
-        time: '',
         jewelry: '',
         message: '',
+        captchaAnswer: '',
       });
       setErrors({});
       setShowModal(false);
@@ -99,19 +176,6 @@ const Header: React.FC = () => {
       console.error('Error sending appointment request:', error);
       alert('Failed to send appointment. Please try again later.');
     }
-  };
-
-  const generateTimeOptions = () => {
-    const times = [];
-    for (let hour = 0; hour < 24; hour++) {
-      for (let minute = 0; minute < 60; minute += 30) {
-        const hour12 = hour % 12 === 0 ? 12 : hour % 12;
-        const ampm = hour < 12 ? 'AM' : 'PM';
-        const timeString = `${hour12.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')} ${ampm}`;
-        times.push(timeString);
-      }
-    }
-    return times;
   };
 
   const navLinks = [
@@ -138,7 +202,7 @@ const Header: React.FC = () => {
         <Container fluid className="d-flex align-items-center justify-content-between">
           <div className="header-logo">
             <Link href="/" passHref legacyBehavior={false}>
-              <Navbar.Brand onClick={closeMenu} style={{ cursor: 'pointer' }}>
+              <Navbar.Brand onClick={() => setExpanded(false)} style={{ cursor: 'pointer' }}>
                 <Image src={logo} alt="Suvarnakala Logo" width={150} height={60} />
               </Navbar.Brand>
             </Link>
@@ -168,7 +232,7 @@ const Header: React.FC = () => {
                         e.preventDefault();
                         onClick();
                       }
-                      closeMenu();
+                      setExpanded(false);
                     }}
                     style={{ textDecoration: 'none' }}
                   >
@@ -322,29 +386,7 @@ const Header: React.FC = () => {
                   </div>
                 </div>
                 <div className="row">
-                  <div className="mb-3 col-md-6">
-                    <div className="w-100">
-                      <select
-                        className="form-control bg-black w-100 border-white"
-                        style={{ color: formData.time ? '#fff' : 'rgb(126, 121, 121)' }}
-                        name="time"
-                        required
-                        value={formData.time}
-                        onChange={handleChange}
-                      >
-                        <option value="" disabled>
-                          Select Appointment Time
-                        </option>
-                        {generateTimeOptions().map((time) => (
-                          <option key={time} value={time}>
-                            {time}
-                          </option>
-                        ))}
-                      </select>
-                      {errors.time && <span className="error-text">{errors.time}</span>}
-                    </div>
-                  </div>
-                  <div className="mb-3 col-md-6">
+                  <div className="mb-3 col-md-12">
                     <input
                       className="form-control text-white bg-black w-100 border-white"
                       type="text"
@@ -368,6 +410,66 @@ const Header: React.FC = () => {
                     style={{ width: '100%', height: '175px' }}
                   />
                 </div>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    alignItems: 'center',
+                    gap: 2,
+                    mt: 3,
+                    mb: 3,
+                  }}
+                >
+                  <canvas
+                    ref={canvasRef}
+                    width={200}
+                    height={60}
+                    style={{
+                      border: '1px solid #dee2e6',
+                      borderRadius: '4px',
+                      backgroundColor: '#f0f0f0',
+                      maxWidth: '100%',
+                    }}
+                  />
+                  <Button
+                    variant="outlined"
+                    onClick={generateCaptcha}
+                    className="rounded-1 p-2"
+                    style={{
+                      borderColor: '#033A79',
+                      color: '#033A79',
+                      minWidth: '50px',
+                      padding: '10px',
+                      flexShrink: 0,
+                    }}
+                  >
+                    <TbRefresh />
+                  </Button>
+                  <TextField
+                    id="captchaAnswer"
+                    name="captchaAnswer"
+                    label="Enter CAPTCHA Code"
+                    variant="outlined"
+                    size="medium"
+                    value={formData.captchaAnswer}
+                    onChange={handleChange}
+                    error={!!errors.captchaAnswer }
+
+                    helperText={errors.captchaAnswer}
+                    fullWidth
+                    sx={{
+                      flex: 1,
+                      input: { color: '#fff' },
+                      label: { color: '#fff' },
+                      '& .MuiOutlinedInput-root': {
+                        '& fieldset': { borderColor: '#fff' },
+                        '&:hover fieldset': { borderColor: '#fff' },
+                        '&.Mui-focused fieldset': { borderColor: '#fff' },
+                      },
+                    }}
+                    inputProps={{ autoComplete: 'off' }}
+                  />
+                </Box>
                 <div className="text-center pt-4">
                   <Button
                     onClick={handleSubmit}
@@ -412,7 +514,7 @@ const Header: React.FC = () => {
         }
         .custom-navbar {
           background-color: #fff;
-          padding: 10px 0;
+         hearted padding: 10px 0;
         }
         .custom-nav-link {
           color: #333;

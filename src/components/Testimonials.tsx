@@ -32,7 +32,7 @@ const Testimonials: React.FC<Props> = ({ testimonials }) => {
           <span>
             Customer <span className="text-red">Stories :</span>
           </span>
-                    <div className="decorative-line">
+          <div className="decorative-line">
             <div className="diamond"></div>
             <div className="line"></div>
             <div className="diamond"></div>
@@ -53,37 +53,39 @@ const Testimonials: React.FC<Props> = ({ testimonials }) => {
           aria-live="polite"
         >
           {testimonials.map((testimonial, index) => (
-<div
-  key={index}
-  className="p-4 bg-white rounded-4 shadow-sm d-flex flex-column justify-content-between text-start position-relative testimonial-card"
-  style={{
-    height: '210px',
-    border: '1px solid #e3e6ea',
-  }}
-  role="group"
-  aria-label={`Testimonial by ${testimonial.name}`}
->
-  <div className="d-flex align-items-center mb-3">
-    <div
-      className="rounded-circle d-flex align-items-center justify-content-center me-3"
-      style={{
-        width: '45px',
-        height: '45px',
-        backgroundColor: '#012f63',
-        color: '#fff',
-        fontWeight: 600,
-        fontSize: '18px',
-      }}
-    >
-      {testimonial.name.charAt(0)}
-    </div>
-    <h6 className="m-0 text-dark fw-semibold">{testimonial.name}</h6>
-  </div>
-  <p className="text-secondary mt-0 mb-0" style={{ fontSize: '14px', lineHeight: '1.5' }}>
-    “{testimonial.description}”
-  </p>
-</div>
-
+            <div
+              key={index}
+              className="p-4 bg-white rounded-4 shadow-sm d-flex flex-column justify-content-between text-start position-relative testimonial-card"
+              style={{
+                height: '210px',
+                border: '1px solid #e3e6ea',
+              }}
+              role="group"
+              aria-label={`Testimonial by ${testimonial.name}`}
+            >
+              <div className="d-flex align-items-center mb-3">
+                <div
+                  className="rounded-circle d-flex align-items-center justify-content-center me-3"
+                  style={{
+                    width: '45px',
+                    height: '45px',
+                    backgroundColor: '#012f63',
+                    color: '#fff',
+                    fontWeight: 600,
+                    fontSize: '18px',
+                  }}
+                >
+                  {testimonial.name.charAt(0)}
+                </div>
+                <h6 className="m-0 text-dark fw-semibold">{testimonial.name}</h6>
+              </div>
+              <p
+                className="text-secondary mt-0 mb-0"
+                style={{ fontSize: '14px', lineHeight: '1.5' }}
+              >
+                “{testimonial.description}”
+              </p>
+            </div>
           ))}
         </Carousel>
       ) : (

@@ -5,31 +5,31 @@ import Image from 'next/image';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 
-import demoBg from '../assets/demo_bg.png';
-import goldSet from '../assets/indian-traditional-jewellery_136354-6545.avif';
-import diamondSet from '../assets/gold-mangalsutra-necklace_864595-690.avif';
-import silverSet from '../assets/women-s-earings_8408-3.avif';
+import demoBg from '../../public/assets/demo_bg.png';
+import goldSet from '../../public/assets/indian-traditional-jewellery_136354-6545.avif';
+import diamondSet from '../../public/assets/gold-mangalsutra-necklace_864595-690.avif';
+import silverSet from '../../public/assets/women-s-earings_8408-3.avif';
 
 const slides = [
   {
-    content: "Timeless Gold Elegance",
+    content: 'Timeless Gold Elegance',
     description:
-      "Experience the exquisite craftsmanship and unparalleled beauty of our exclusive gold jewelry collection—designed to celebrate every moment.",
-    explore: "→ Gold Collection",
+      'Experience the exquisite craftsmanship and unparalleled beauty of our exclusive gold jewelry collection—designed to celebrate every moment.',
+    explore: '→ Gold Collection',
     image: goldSet,
   },
   {
-    content: "Sparkling Real Diamonds",
+    content: 'Sparkling Real Diamonds',
     description:
-      "Discover the captivating sparkle and eternal allure of authentic diamonds, meticulously set to enhance your unique style.",
-    explore: "→ Diamond Treasures",
+      'Discover the captivating sparkle and eternal allure of authentic diamonds, meticulously set to enhance your unique style.',
+    explore: '→ Diamond Treasures',
     image: diamondSet,
   },
   {
-    content: "Exquisite Silver Designs",
+    content: 'Exquisite Silver Designs',
     description:
-      "Explore our stunning silver jewelry pieces, crafted to add a touch of grace and sophistication to any outfit.",
-    explore: "→ Silver Collection",
+      'Explore our stunning silver jewelry pieces, crafted to add a touch of grace and sophistication to any outfit.',
+    explore: '→ Silver Collection',
     image: silverSet,
   },
 ];
@@ -65,11 +65,11 @@ const About = () => {
                 Timeless Elegance, Redefined
               </h5>
               <p className="text-justify mt-3">
-                Discover the enduring charm of Gold, the brilliance of Real Diamonds,
-                and the innovation of Lab-Grown Diamonds. Whether you seek classic luxury,
-                natural sparkle, or sustainable sophistication, our carefully curated
-                collection offers something for every style and occasion. Crafted to
-                perfection, each piece reflects purity, beauty, and value you can treasure forever.
+                Discover the enduring charm of Gold, the brilliance of Real Diamonds, and the
+                innovation of Lab-Grown Diamonds. Whether you seek classic luxury, natural sparkle,
+                or sustainable sophistication, our carefully curated collection offers something for
+                every style and occasion. Crafted to perfection, each piece reflects purity, beauty,
+                and value you can treasure forever.
               </p>
             </div>
           </div>
@@ -99,19 +99,19 @@ const About = () => {
                     </div>
                   </div>
                   <div className="about_main_image">
-<Image
-  src={slide.image}
-  alt={slide.content}
-  width={500}
-  height={300}
-  style={{
-    width: '370px',
-    height: '370px',
-    borderRadius: '20px',
-    objectFit: 'cover' // Optional: keeps image nicely cropped
-  }}
-/>
-               </div>
+                    <Image
+                      src={slide.image}
+                      alt={slide.content}
+                      width={500}
+                      height={300}
+                      style={{
+                        width: '370px',
+                        height: '370px',
+                        borderRadius: '20px',
+                        objectFit: 'cover', // Optional: keeps image nicely cropped
+                      }}
+                    />
+                  </div>
                 </div>
               ))}
             </Carousel>

@@ -7,6 +7,7 @@ import {
   getTrendingDesigns,
   BASE_URL, // ✅ From api.ts
 } from '../lib/api';
+import Popup from '../components/Popup'; // ✅ Add this line
 
 import Hero from '../components/HeroCarousel';
 import Products from '../components/Events';
@@ -34,14 +35,15 @@ export default async function Home() {
 
   return (
     <>
+      <Popup /> {/* ✅ Show popup only once per session */}
       <Hero heroes={heroes} baseUrl={BASE_URL} />
       <CredibilitySection />
       <VideoSection />
-      <ShopbyStyle categories={categories}  />
+      <ShopbyStyle categories={categories} />
       <Products />
       <TopTrendingDesigns initialDesigns={trendingDesigns} />
       <GiftCard />
-      <Moments moments={moments}  />
+      <Moments moments={moments} />
       <BachatMahotsav bachatMahotsavImages={bachatMahotsavImages} />
       <Testimonials testimonials={testimonials} />
     </>

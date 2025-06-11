@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL ;
+export const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 const API = axios.create({
   baseURL: BASE_URL,
@@ -89,7 +89,6 @@ export const sendAppointment = async (formData: {
   city: string;
   store: string;
   date: string;
-  time: string;
   jewelry: string;
   message: string;
 }) => {

@@ -4,9 +4,9 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Head from 'next/head';
 
-import mobile from '../assets/mobile.png';
-import playstore from '../assets/googleplay.png';
-import appstore from '../assets/appstore.png';
+import mobile from '../../public/assets/mobile.png';
+import playstore from '../../public/assets/googleplay.png';
+import appstore from '../../public/assets/appstore.png';
 
 import line from '../assets/line466.png';
 

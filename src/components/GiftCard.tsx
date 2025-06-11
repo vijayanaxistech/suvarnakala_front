@@ -3,11 +3,11 @@
 import React from 'react';
 import Image from 'next/image';
 import Head from 'next/head'; // For SEO metadata
-import giftcard from '../assets/Gift Card 2.png';
-import goldIcon from '../assets/6fe12d1ca7e63ca786546007ade02bf47d451b70.png';
-import calendarIcon from '../assets/58ffe92b446f8b39c2730187c40eb5601690961e.png';
-import playstore from '../assets/googleplay.png';
-import appstore from '../assets/appstore.png';
+import giftcard from '../../public/assets/Gift Card 2.png';
+import goldIcon from '../../public/assets/6fe12d1ca7e63ca786546007ade02bf47d451b70.png';
+import calendarIcon from '../../public/assets/58ffe92b446f8b39c2730187c40eb5601690961e.png';
+import playstore from '../../public/assets/googleplay.png';
+import appstore from '../../public/assets/appstore.png';
 const GiftCard = () => {
   // Structured data for SEO (JSON-LD)
   const structuredData = {
@@ -132,7 +132,7 @@ const GiftCard = () => {
                 <p className="mt-4 text-red text-center text-md-start">
                   For latest updates and offers, download our app today.
                 </p>
-                                <div className="d-flex gap-3 mb-3 align-items-center">
+                <div className="d-flex gap-3 mb-3 align-items-center">
                   <Image src={playstore} alt="Play Store" width={120} height={40} />
                   <Image src={appstore} alt="App Store" width={120} height={40} />
                 </div>

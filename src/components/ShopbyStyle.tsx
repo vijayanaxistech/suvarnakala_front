@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { BASE_URL } from '../lib/api';  // adjust the relative path to your api.ts
+import { BASE_URL } from '../lib/api';
 
 interface Category {
   _id: string;
@@ -15,10 +15,7 @@ interface ShopbyStyleProps {
   isLoading?: boolean;
 }
 
-const ShopbyStyle: React.FC<ShopbyStyleProps> = ({
-  categories,
-  isLoading = false,
-}) => {
+const ShopbyStyle: React.FC<ShopbyStyleProps> = ({ categories, isLoading = false }) => {
   const displayedCategories = categories.slice(0, 7);
 
   const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
@@ -41,16 +38,18 @@ const ShopbyStyle: React.FC<ShopbyStyleProps> = ({
         <span className="heading-extension">Find Your Perfect Match</span>
       </div>
 
-      <div className="categories-container">
+      <div className="categories-container grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-4">
         {isLoading ? (
-          <div className="text-center">Loading...</div>
+          <div className="text-center col-span-full">Loading...</div>
         ) : (
           <>
-            {displayedCategories.map((item) => (
+            {displayedCategories.map((item, index) => (
               <Link
                 href={`/collections/category/${encodeURIComponent(item.name)}`}
                 key={item._id}
-                className="category-item text-decoration-none"
+                className={`category-item text-decoration-none ${
+                  index < 4 ? 'top-row' : 'bottom-row'
+                }`}
                 role="group"
                 aria-label={`Category: ${item.name}`}
               >
@@ -58,11 +57,16 @@ const ShopbyStyle: React.FC<ShopbyStyleProps> = ({
                   className="image-wrapper"
                   style={{
                     overflow: 'hidden',
-                    borderRadius: '0.30rem',
+                    borderRadius: '0.80rem',
+                    aspectRatio: '1/1',
                   }}
                 >
                   <Image
-                    src={item.image ? `${BASE_URL}/${item.image}` : 'https://via.placeholder.com/250x250?text=No+Image'}
+                    src={
+                      item.image
+                        ? `${BASE_URL}/${item.image}`
+                        : 'https://via.placeholder.com/250x250?text=No+Image'
+                    }
                     alt={`Suvarnakala ${item.name} Jewelry Collection`}
                     width={250}
                     height={250}
@@ -70,36 +74,50 @@ const ShopbyStyle: React.FC<ShopbyStyleProps> = ({
                     style={{
                       objectFit: 'cover',
                       width: '100%',
+                      height: '100%',
                       transition: 'transform 0.3s ease-in-out',
                     }}
                     onError={handleImageError}
                     loading="lazy"
                   />
                 </div>
-                <p className="text-red mt-2 fs-5 text-center">{item.name}</p>
+                <p className="text-red mt-2 fs-5 sm:fs-5 text-center">{item.name}</p>
               </Link>
             ))}
 
-            {categories.length > 7 && (
-              <Link
-                href="/collections"
-                className="category-item extra-category text-decoration-none"
-                role="group"
-                aria-label="Explore Additional Categories"
+            <Link
+              href="/collections"
+              className=" text-decoration-none bottom-row"
+              role="group"
+              aria-label="Explore Additional Categories"
+            >
+              <div
+                className="d-flex flex-column justify-content-center align-items-center text-center "
+                style={{
+                  background: 'linear-gradient(135deg, #F5E7D6 0%, #F5E7D6 100%)',
+                  aspectRatio: '1/1',
+                  width: '100%',
+                  color: '#6b4c2d',
+                  fontFamily: "'Playfair Display', serif",
+                  padding: '1.5rem',
+                  letterSpacing: '0.05em',
+                  userSelect: 'none',
+                  borderRadius: '0.80rem',
+                }}
               >
-                <div
-                  className="d-flex flex-column justify-content-center align-items-center text-red text-center rounded"
-                  style={{
-                    height: '302px',
-                    background: 'linear-gradient(180deg, #EBC08D 0%, #EAEAEA 100%)',
-                  }}
+                <p
+                  className="fs-5 fw-bold mb-0"
+                  style={{ textTransform: 'uppercase', fontWeight: '700', letterSpacing: '0.1em' }}
                 >
-                  <p className="fs-5 mb-0">Explore additional</p>
-                  <p className="fs-5">categories</p>
-                </div>
-                <p className="text-red mt-2 fs-5 text-center">View all</p>
-              </Link>
-            )}
+                  Discover
+                </p>
+                <p className="fs-4" style={{ fontWeight: '500', marginTop: '0.25rem' }}>
+                  Exclusive Collections
+                </p>
+              </div>
+
+              <p className="text-red mt-2 fs-5 sm:fs-5 text-center">View all</p>
+            </Link>
           </>
         )}
       </div>
@@ -107,6 +125,36 @@ const ShopbyStyle: React.FC<ShopbyStyleProps> = ({
       <style jsx global>{`
         .category-item:hover .category-image {
           transform: scale(1.05);
+        }
+        @media (min-width: 768px) {
+          .top-row {
+            grid-column: auto;
+          }
+          .bottom-row {
+            grid-column: auto;
+          }
+        }
+        @media (max-width: 767px) {
+          .categories-container {
+            grid-template-columns: repeat(2, 1fr);
+          }
+          .top-row:nth-child(1),
+          .top-row:nth-child(2) {
+            grid-column: 1;
+          }
+          .top-row:nth-child(3),
+          .top-row:nth-child(4) {
+            grid-column: 2;
+          }
+          .bottom-row:nth-child(5) {
+            grid-column: 1;
+          }
+          .bottom-row:nth-child(6) {
+            grid-column: 2;
+          }
+          .extra-category {
+            grid-column: 1 / -1;
+          }
         }
       `}</style>
     </div>

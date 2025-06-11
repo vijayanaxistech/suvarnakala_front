@@ -1,4 +1,3 @@
-// components/HeroCarousel.tsx
 'use client';
 
 import { useState, useEffect, useCallback, useRef } from 'react';
@@ -21,12 +20,18 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({ heroes, baseUrl }) => {
   const [slideWidth, setSlideWidth] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
 
+  // Sort heroes by priority
+  const sortedHeroes = [...heroes].sort((a, b) => a.priority - b.priority);
+
   useEffect(() => {
+    console.log('Sorted Heroes:', sortedHeroes);
     const updateWidth = () => {
       if (containerRef.current) {
         setSlideWidth(containerRef.current.clientWidth);
+        console.log('Slide width:', containerRef.current.clientWidth);
       } else {
         setSlideWidth(window.innerWidth);
+        console.log('Window width:', window.innerWidth);
       }
     };
     updateWidth();
@@ -35,20 +40,20 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({ heroes, baseUrl }) => {
   }, []);
 
   const goNext = useCallback(() => {
-    setCurrentIndex((prev) => (prev + 1) % (heroes.length || 1));
-  }, [heroes.length]);
+    setCurrentIndex((prev) => (prev + 1) % (sortedHeroes.length || 1));
+  }, [sortedHeroes.length]);
 
   const goPrev = useCallback(() => {
-    setCurrentIndex((prev) => (prev - 1 + (heroes.length || 1)) % (heroes.length || 1));
-  }, [heroes.length]);
+    setCurrentIndex((prev) => (prev - 1 + (sortedHeroes.length || 1)) % (sortedHeroes.length || 1));
+  }, [sortedHeroes.length]);
 
   useEffect(() => {
-    if (slideWidth === 0 || heroes.length === 0) return;
+    if (slideWidth === 0 || sortedHeroes.length === 0) return;
     const interval = setInterval(() => {
       goNext();
     }, 3000);
     return () => clearInterval(interval);
-  }, [slideWidth, goNext, heroes.length]);
+  }, [slideWidth, goNext, sortedHeroes.length]);
 
   return (
     <div
@@ -57,87 +62,105 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({ heroes, baseUrl }) => {
       style={{ width: '100%', maxWidth: '100vw', height: '600px', margin: 'auto' }}
       aria-label="Suvarnakala Hero Section Carousel"
     >
-      {heroes.length > 0 && (
+      {sortedHeroes.length > 0 ? (
         <div
           style={{
             display: 'flex',
-            width: `${heroes.length * slideWidth}px`,
+            width: `${sortedHeroes.length * slideWidth}px`,
             transform: `translateX(-${currentIndex * slideWidth}px)`,
             transition: 'transform 0.7s ease-in-out',
           }}
           aria-live="polite"
         >
-          {heroes.map(({ title, description, image }, idx) => (
-            <div
-              key={idx}
-              style={{
-                width: `${slideWidth}px`,
-                height: '600px',
-                position: 'relative',
-                flexShrink: 0,
-                backgroundImage: `url(${image.startsWith('http') ? image : `${baseUrl}${image}`})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-              }}
-              role="group"
-              aria-label={`Slide ${idx + 1}: ${title}`}
-            >
+          {sortedHeroes.map(({ title, description, image }, idx) => {
+            const imageUrl = image.startsWith('http') ? image : `${baseUrl}${image}`;
+            console.log(`Slide ${idx + 1} image URL:`, imageUrl);
+            return (
               <div
+                key={idx}
                 style={{
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  width: '100%',
-                  height: '100%',
-                  backgroundColor: 'rgba(0,0,0,0.5)',
-                  zIndex: 1,
+                  width: `${slideWidth}px`,
+                  height: '600px',
+                  position: 'relative',
+                  flexShrink: 0,
+                  backgroundImage: `url(${imageUrl || '/fallback-image.jpg'})`, // Fallback image
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                  backgroundColor: '#f0f0f0', // Fallback color for debugging
                 }}
-              />
-              <div
-                className="d-none d-md-flex flex-column justify-content-center"
-                style={{
-                  position: 'absolute',
-                  top: 0,
-                  left: '5%',
-                  height: '100%',
-                  color: 'white',
-                  maxWidth: '40%',
-                  paddingRight: '15px',
-                  zIndex: 2,
-                }}
+                role="group"
+                aria-label={`Slide ${idx + 1}: ${title}`}
               >
-                <h1 className="display-6 fw-semibold mb-4">{title}</h1>
-                <p className="lead mb-5">{description}</p>
-                <a href="/collections" className="btn custom-btn btn-lg w-auto px-4">
-                  Check Collection
-                </a>
+                <div
+                  style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    backgroundColor: 'rgba(0,0,0,0.5)',
+                    zIndex: 1,
+                  }}
+                />
+                <div
+                  className="d-none d-md-flex flex-column justify-content-center"
+                  style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: '5%',
+                    height: '100%',
+                    color: 'white',
+                    maxWidth: '40%',
+                    paddingRight: '15px',
+                    zIndex: 2,
+                  }}
+                >
+                  <h1 className="display-6 fw-semibold mb-4">{title}</h1>
+                  <p className="lead mb-5">{description}</p>
+                  <a href="/collections" className="btn custom-btn btn-lg w-auto px-4">
+                    Check Collection
+                  </a>
+                </div>
+                <div
+                  className="d-flex d-md-none flex-column justify-content-center align-items-center text-center"
+                  style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    padding: '20px',
+                    color: 'white',
+                    zIndex: 2,
+                    background:
+                      'linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0.3), rgba(0,0,0,0))',
+                  }}
+                >
+                  <h3 className="fw-semibold mb-3">{title}</h3>
+                  <p className="mb-4">{description}</p>
+                  <a href="/collections" className="btn custom-btn">
+                    Check Collection
+                  </a>
+                </div>
               </div>
-              <div
-                className="d-flex d-md-none flex-column justify-content-center align-items-center text-center"
-                style={{
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  padding: '20px',
-                  color: 'white',
-                  zIndex: 2,
-                  background:
-                    'linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0.3), rgba(0,0,0,0))',
-                }}
-              >
-                <h3 className="fw-semibold mb-3">{title}</h3>
-                <p className="mb-4">{description}</p>
-                <a href="/collections" className="btn custom-btn">
-                  Check Collection
-                </a>
-              </div>
-            </div>
-          ))}
+            );
+          })}
+        </div>
+      ) : (
+        <div
+          style={{
+            width: '100%',
+            height: '600px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: '#f0f0f0',
+          }}
+        >
+          <p>No heroes available</p>
         </div>
       )}
-      {heroes.length > 0 && (
+      {sortedHeroes.length > 0 && (
         <>
           <button
             onClick={goPrev}

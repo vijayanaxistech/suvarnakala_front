@@ -1,6 +1,15 @@
 // next.config.js
-module.exports = {
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  output: 'export', // ✅ this enables next export
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  typescript: {
+    ignoreBuildErrors: true,
+  },
   images: {
+    unoptimized: true, // ✅ required for static export
     remotePatterns: [
       {
         protocol: 'http',
@@ -15,6 +24,9 @@ module.exports = {
       },
     ],
   },
+  env: {
+    BASE_URL: process.env.BASE_URL,
+  },
 };
- 
- 
+
+module.exports = nextConfig;

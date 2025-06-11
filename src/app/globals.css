@@ -137,7 +137,7 @@
   bottom: 0;
   width: 100%;
   aspect-ratio: 6 / 1;
-  background-image: url('../assets/Line 467.png');
+  background-image: url('../../public/assets/Line\ 467.png');
   background-repeat: no-repeat;
   background-size: contain;
   background-position: bottom left;
@@ -242,7 +242,10 @@
 }
 
 .product-card .imageWrapper .categoryImage {
-  transition: transform 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    opacity 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .product-card:hover .imageWrapper .categoryImage {
@@ -265,7 +268,10 @@
 }
 
 .category-item .image-wrapper .category-image {
-  transition: transform 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    opacity 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .category-item:hover .image-wrapper .category-image {
@@ -679,10 +685,9 @@ textarea::placeholder {
 /* -- */
 /* -- */
 .about_section {
-  background: #F5E7D6 url('../assets/bg-about.png') no-repeat center center / cover;
+  background: #f5e7d6 url('/assets/simple.png') no-repeat center center / cover;
   position: relative;
   overflow: hidden;
-  
 }
 
 .about_section .col-md-6:nth-child(2) {
@@ -696,27 +701,26 @@ textarea::placeholder {
 .about_section .col-md-6:nth-child(2)::after {
   content: '';
   position: absolute;
-  top: 50%;         /* start at middle */
-  left: 10;          /* on the left edge */
-  width: 2px;       /* thin vertical line */
-  height: 90%;      /* 90% height of parent */
-  background-color: #D41B1F;
+  top: 50%; /* start at middle */
+  left: 10; /* on the left edge */
+  width: 2px; /* thin vertical line */
+  height: 90%; /* 90% height of parent */
+  background-color: #d41b1f;
   border-radius: 1px;
   transform: translateY(-50%); /* move up half its own height to center vertically */
 }
 
-
-@media (max-width: 767.98px) {  /* Bootstrap’s breakpoint for small devices */
+@media (max-width: 767.98px) {
+  /* Bootstrap’s breakpoint for small devices */
   .about_section .col-md-6:nth-child(2)::after {
     display: none;
   }
 }
 
-
 .about_section::after {
   content: '';
   position: absolute;
-  background: url('../assets/leaf.svg') no-repeat;
+  background: url('../../public/assets/leaf.svg') no-repeat;
   width: 54px;
   height: 85px;
   top: 0;
@@ -731,7 +735,7 @@ textarea::placeholder {
 .about_title h3::after {
   content: '';
   position: absolute;
-  background: url('../assets/down_to_arrow.svg');
+  background: url('../../public/assets/down_to_arrow.svg');
   width: 100%;
   height: 1px;
   z-index: -1;
@@ -740,7 +744,7 @@ textarea::placeholder {
 .about_title::after {
   content: '';
   position: absolute;
-  background: #D41B1F;
+  background: #d41b1f;
   width: 2px;
   height: 370px;
   right: 40px;
@@ -748,15 +752,13 @@ textarea::placeholder {
   z-index: -1;
 }
 
-
-
 .about_title h5 {
-  color: #033A79;
+  color: #033a79;
   margin-top: 18px;
 }
 
 .about_title p {
-  color: #100F0F;
+  color: #100f0f;
   max-width: 493px;
 }
 
@@ -771,7 +773,7 @@ textarea::placeholder {
   left: 15%;
   width: 159px;
   font-size: 14px;
-  color: #033A79;
+  color: #033a79;
 }
 
 .about_right_wrapper {
@@ -803,8 +805,25 @@ textarea::placeholder {
     padding: 0;
   }
   .about_patternshape {
-  position: relative;
-  margin-left: -210px;
+    position: relative;
+    margin-left: -210px;
+  }
 }
+
+
+.more-info-btn-sm {
+  background: #033a79;
+  color: white;
+  font-size: 0.75rem; /* Small text */
+  font-weight: 500;
+  padding: 4px 10px;
+  border: none;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  line-height: 1;
 }
+
+
 

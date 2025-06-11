@@ -6,7 +6,6 @@ export const metadata = {
   description: 'Explore Suvarnakala’s exquisite jewellery showrooms across India. Visit us today!',
 };
 
-
 export default function Page() {
   return <OurShowroom />;
 }

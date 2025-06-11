@@ -3,7 +3,7 @@
 import React from 'react';
 import Head from 'next/head'; // For SEO metadata
 import Image from 'next/image';
-import logo from '../assets/Suvarnakala.png';
+import logo from '../../public/assets/Suvarnakala.png';
 import {
   FaTwitter,
   FaFacebook,
@@ -12,9 +12,10 @@ import {
   FaEnvelope,
   FaMapMarkerAlt,
 } from 'react-icons/fa';
-import googleplay from '../assets/googleplay.png';
-import appstore from '../assets/appstore.png';
-import leaf from '../assets/Group 41992.png';
+import googleplay from '../../public/assets/googleplay.png';
+import appstore from '../../public/assets/appstore.png';
+import leaf from '../../public/assets/Group 41992.png';
+import Link from 'next/link';
 
 const currentYear = new Date().getFullYear();
 
@@ -118,42 +119,46 @@ export default function Footer() {
               </div>
 
               {/* Useful Links */}
+
               <div className="footer-links-section">
                 <h6 className="fw-bold mb-3 text-uppercase footer-title">Useful Links</h6>
                 <ul className="list-unstyled">
                   {[
-                    'Home',
-                    'About Us',
-                    'Our Showrooms',
-                    'Contact Us',
-                    'Return Policy',
-                    'Shipping & Delivery',
-                    'Disclaimer',
-                    'Privacy Policy',
-                  ].map((item, index) => (
+                    { name: 'Home', href: '/' },
+                    { name: 'About Us', href: '/about' },
+                    { name: 'Our Showrooms', href: '/our-showrooms' },
+                    { name: 'Contact Us', href: '/contact' },
+                    { name: 'Disclaimer', href: '/disclaimer' },
+                    { name: 'Privacy Policy', href: '/privacy-policy' },
+                  ].map((link, index) => (
                     <li key={index} className="mb-1">
-                      <a href="#" className="text-dark text-decoration-none footer-link">
-                        {item}
-                      </a>
+                      <Link href={link.href} className="text-dark text-decoration-none footer-link">
+                        {link.name}
+                      </Link>
                     </li>
                   ))}
                 </ul>
               </div>
 
+
               {/* Get In Touch */}
               <div className="footer-contact-section">
                 <h6 className="fw-bold mb-3 text-uppercase footer-title">Get In Touch</h6>
                 <ul className="list-unstyled text-dark small">
-
                   <li className="mb-2 d-flex align-items-center">
                     <FaPhoneAlt className="text-red me-2 icon-small" aria-hidden="true" />
-                    <span>+91 7874011144</span>
+                    <a href="tel:+917874011144" className="text-dark text-decoration-none">
+                      +91 7874011144
+                    </a>
                   </li>
                   <li className="d-flex align-items-center">
                     <FaEnvelope className="text-red me-2 icon-small" aria-hidden="true" />
-                    <span>sales@suvarnakala.com</span>
+                    <a href="mailto:sales@suvarnakala.com" className="text-dark text-decoration-none">
+                      sales@suvarnakala.com
+                    </a>
                   </li>
                 </ul>
+
               </div>
 
               {/* Social Media */}

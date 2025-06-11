@@ -5,12 +5,13 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import { IoLogoWhatsapp } from 'react-icons/io';
-import breadcrumbImage from '../../../assets/collections.png';
-import shopnowbg from '../../../assets/dark-brown-colour-flower-pattern-background-abstract-banner-multipurpose-design 1.png';
-import shopWomen from '../../../assets/shopWomwn.png';
+import breadcrumbImage from '../../../../public/assets/collections.png';
+import shopnowbg from '../../../../public/assets/dark-brown-colour-flower-pattern-background-abstract-banner-multipurpose-design 1.png';
+import shopWomen from '../../../../public/assets/shopWomwn.png';
 import styles from '../../page.module.css';
 import { getProductById, getProducts, BASE_URL } from '../../../lib/api';
 import WhatsAppButton from '../../collections/WhatsAppButton';
+import MoreInfoButton from '../../collections/MoreInfo'
 import ProductImageGallery from '../ProductImageGallery'; // Import the new components --
 import { Metadata } from 'next';
 
@@ -56,6 +57,15 @@ interface Product {
   grossWeight: string;
   mainImage: string;
   subImages: string[];
+}
+
+export async function generateStaticParams() {
+  const res = await fetch('https://skalaapi.anaxistech.com/api/products');
+  const products = await res.json();
+
+  return products.map((product: any) => ({
+    id: product._id,
+  }));
 }
 
 const transformProduct = (raw: RawProduct): Product => ({
@@ -201,8 +211,20 @@ const ProductDetailPage = async ({ params }: { params: { id: string } }) => {
                         <div className="p-1">
                           <div className="d-flex justify-content-between align-items-center">
                             <h6 className="card-title text-dark text-truncate mb-0">
-                              {item.title}
+                               {product.title.length > 20 ? product.title.substring(0, 20) + '...' :item.title}
                             </h6>
+
+                          <MoreInfoButton
+                            product={{
+                              title: product.title,
+                              metal: product.metal,
+                              purity: product.purity,
+                              grossWeight: product.grossWeight,
+                              mainImage: product.mainImage
+                                ? `${BASE_URL}/${product.mainImage}`
+                                : 'https://via.placeholder.com/300x300?text=No+Image',
+                            }}
+                          />
                             <WhatsAppButton product={item} />
                           </div>
                           <p className="card-text text-dark mb-1">

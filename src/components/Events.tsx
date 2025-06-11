@@ -2,10 +2,10 @@
 
 import Image from 'next/image';
 import Head from 'next/head'; // For SEO metadata
-import bridalBliss from '../assets/Bridal Bliss.jpg';
-import dazzlingDiamonds from '../assets/2- Diamonds.jpg';
-import goldenClassic from '../assets/3- Gold Classic.jpg';
-import effortlessEveryday from '../assets/1- Effortless Every day.jpg';
+import bridalBliss from '../../public/assets/Bridal Bliss.jpg';
+import dazzlingDiamonds from '../../public/assets/2- Diamonds.jpg';
+import goldenClassic from '../../public/assets/3- Gold Classic.jpg';
+import effortlessEveryday from '../../public/assets/1- Effortless Every day.jpg';
 import styles from '../app/page.module.css';
 
 const categories = [
