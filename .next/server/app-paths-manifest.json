@@ -1,0 +1,12 @@
+{
+  "/_not-found/page": "app/_not-found/page.js",
+  "/about/page": "app/about/page.js",
+  "/collections/[[...filters]]/page": "app/collections/[[...filters]]/page.js",
+  "/contact/page": "app/contact/page.js",
+  "/events/page": "app/events/page.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/our-showrooms/page": "app/our-showrooms/page.js",
+  "/page": "app/page.js",
+  "/product_detail/[id]/page": "app/product_detail/[id]/page.js",
+  "/why-us/page": "app/why-us/page.js"
+}
