@@ -1,7 +1,7 @@
 // next.config.js
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export', 
+  //output: 'export',
   eslint: {
     ignoreDuringBuilds: true,
   },
@@ -9,7 +9,7 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
-    unoptimized: true, // ✅ required for static export
+    unoptimized: true, //
     remotePatterns: [
       {
         protocol: 'http',
