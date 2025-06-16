@@ -1,0 +1,49 @@
+{
+  "name": "suvarnakala_front",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "export": "next export"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@fortawesome/free-brands-svg-icons": "^6.7.2",
+    "@mui/material": "^7.1.1",
+    "axios": "^1.9.0",
+    "bootstrap": "^5.3.6",
+    "date-fns": "^4.1.0",
+    "jquery": "^3.7.1",
+    "lodash": "^4.17.21",
+    "next": "^15.3.3",
+    "next-sitemap": "^4.2.3",
+    "owl.carousel": "^2.3.4",
+    "react": "^19.1.0",
+    "react-bootstrap": "^2.10.10",
+    "react-datepicker": "^8.4.0",
+    "react-dom": "^19.1.0",
+    "react-fast-marquee": "^1.6.5",
+    "react-icons": "^5.5.0",
+    "react-multi-carousel": "^2.8.6",
+    "react-router-dom": "^7.6.0",
+    "react-slick": "^0.30.3",
+    "slick-carousel": "^1.8.1",
+    "twilio": "^5.7.0"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "15.3.2",
+    "eslint-config-prettier": "^10.1.5",
+    "eslint-plugin-prettier": "^5.4.0",
+    "prettier": "^3.5.3",
+    "typescript": "^5"
+  }
+}

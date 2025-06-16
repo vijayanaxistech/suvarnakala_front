@@ -1,0 +1,161 @@
+.card,
+.cardSmall {
+  position: relative;
+  overflow: hidden;
+  border-radius: 6px;
+  height: 100%;
+}
+
+.card {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 6px;
+}
+
+.cardSmall {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 6;
+  overflow: hidden;
+  border-radius: 6px;
+}
+
+.overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  padding: 1.2rem 1.5rem;
+  color: #033a79;
+  font-weight: 300;
+  font-size: 24px;
+  /* background: linear-gradient(to top, #c77771, rgba(103, 136, 209, 0.3), transparent);
+	filter: drop-shadow(0px -8px 12px rgba(173, 216, 230, 0.5)); */
+  border-radius: 6px;
+  z-index: 2;
+  box-sizing: border-box;
+}
+
+.rightSection {
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  border-radius: 10px; /* Apply border-radius to the entire section */
+  overflow: hidden; /* Ensure content doesn't overflow the rounded corners */
+}
+
+/* Left Panel */
+.goldLeftPanel {
+  border: 2px solid #f5e1e1;
+  border-right: none;
+  border-radius: 10px 0 0 10px;
+  text-align: center;
+  width: 50%;
+  min-height: 450px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.content againWrapper {
+  padding: 20px;
+  max-width: 85%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.goldLeftPanel img {
+  margin-bottom: 15px;
+  max-width: 100%;
+}
+
+.textRed {
+  color: #d32f2f;
+  font-weight: bold;
+  font-size: 22px; /* Match the original design */
+  margin: 10px 0;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  font-family: 'Arial', sans-serif; /* Approximate font */
+}
+
+.textBlue {
+  color: #1976d2;
+  font-size: 14px;
+  margin: 10px 0;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  font-family: 'Arial', sans-serif;
+  line-height: 1.4; /* Improve readability */
+}
+
+.goldLeftPanel a {
+  text-decoration: none;
+  font-size: 14px;
+  color: #d32f2f;
+  margin-top: 10px;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Right Panel */
+.goldRightPanel {
+  width: 50%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: stretch;
+}
+
+.goldRightPanel img {
+  width: 100%;
+  height: 100%;
+  border-radius: 0 10px 10px 0;
+  object-fit: cover;
+  display: block;
+  background-color: #8b0000; /* Red velvet background as fallback */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .rightSection {
+    flex-direction: column;
+  }
+
+  .goldLeftPanel,
+  .goldRightPanel {
+    width: 100%;
+  }
+
+  .goldLeftPanel {
+    border-radius: 10px 10px 0 0;
+    border-right: 2px solid #f5e1e1;
+    border-bottom: none;
+  }
+
+  .goldRightPanel img {
+    border-radius: 0 0 10px 10px;
+  }
+}
+
+.categoryItem .imageWrapper .categoryImage {
+  transition:
+    transform 0.3s ease,
+    opacity 0.3s ease,
+    border-radius 0.3s ease,
+    box-shadow 0.3s ease;
+}
+.categoryItem:hover .imageWrapper .categoryImage {
+  transform: scale(1.05);
+  opacity: 0.9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
